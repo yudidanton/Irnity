@@ -6,6 +6,7 @@
     <title>Pembelajaran IoT - IRMAL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS tetap sama seperti sebelumnya */
         * {
             margin: 0;
             padding: 0;
@@ -97,6 +98,38 @@
             padding: 12px 0;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 100;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
         }
 
         .nav-item {
@@ -697,7 +730,6 @@
 
         .copyright {
             color: var(--primary-color);
-            font-weight: bold;
             margin-top: 0.5rem;
         }
 
@@ -1012,6 +1044,10 @@
         </div>
     </div>
 
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <div class="bottom-nav">
         <a href="#" class="nav-item active" data-page="homePage">
             <i class="fas fa-home"></i>
@@ -1022,12 +1058,12 @@
             <span>Modul</span>
         </a>
         <a href="#" class="nav-item" data-page="practicePage">
-            <i class="fas fa-flask"></i>
+            <i class="fas fa-code"></i>
             <span>Praktik</span>
         </a>
         <a href="#" class="nav-item" data-page="resourcePage">
-            <i class="fas fa-life-ring"></i>
-            <span>Sumber Daya</span>
+            <i class="fas fa-headphones"></i>
+            <span>Dukungan</span>
         </a>
     </div>
 
@@ -1040,290 +1076,9 @@
     </footer>
 
     <script>
-        // Data modul 5-8 yang ditambahkan
-        const additionalModules = [
-            {
-                id: 5,
-                title: "Display dalam IoT",
-                icon: "fas fa-tv",
-                description: "Mengenal 'wajah visual' dari sebuah sistem Internet of Things.",
-                content: `
-                    <h3>1. Apa Itu Display dalam IoT?</h3>
-                    <p>Display adalah komponen output visual yang digunakan untuk menampilkan data, pesan, status, atau informasi penting dari sistem IoT.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Analogi:</h4>
-                        <p>Jika sensor = alat untuk membaca lingkungan, mikrokontroler = otak, aktuator = tangan/kaki, maka Display adalah mata dan wajah dari sistem.</p>
-                    </div>
-                    
-                    <h3>2. Jenis-Jenis Display</h3>
-                    
-                    <h4>a. OLED Display</h4>
-                    <p>Display kecil, hemat daya, sederhana, dan paling cocok untuk pemula.</p>
-                    <p><strong>Kelebihan:</strong> Mudah dipasang, hemat listrik, tampilan jernih</p>
-                    
-                    <h4>b. TFT Display</h4>
-                    <p>Display warna dengan tampilan cerah dan mendukung gambar.</p>
-                    <p><strong>Kelebihan:</strong> Full color, bisa menampilkan grafik, cocok untuk mini-dashboard</p>
-                    
-                    <h4>c. TFT Touchscreen</h4>
-                    <p>Display modern dengan kemampuan sentuh seperti layar HP.</p>
-                    <p><strong>Kelebihan:</strong> Bisa membuat UI interaktif, cocok untuk panel kontrol</p>
-                    
-                    <h4>d. LED Matrix</h4>
-                    <p>Display besar untuk informasi publik dan papan skor.</p>
-                    <p><strong>Kelebihan:</strong> Ukuran besar, sangat terang (outdoor), cocok untuk running text</p>
-                `,
-                quiz: [
-                    {
-                        question: "Apa fungsi display dalam sistem IoT?",
-                        options: ["Menampilkan data visual", "Mengukur suhu", "Menyimpan program", "Mengontrol relay"],
-                        correct: 0,
-                        explanation: "Display berfungsi untuk menampilkan data dan informasi dalam bentuk visual."
-                    },
-                    {
-                        question: "Display mana yang paling cocok untuk pemula?",
-                        options: ["OLED Display", "TFT Touchscreen", "LED Matrix P10", "LCD 16x2"],
-                        correct: 0,
-                        explanation: "OLED display paling cocok untuk pemula karena sederhana, hemat daya, dan mudah dipasang."
-                    },
-                    {
-                        question: "Display apa yang cocok untuk papan informasi masjid?",
-                        options: ["LED Matrix P10", "OLED 0.96", "TFT 1.8 inch", "LCD 20x4"],
-                        correct: 0,
-                        explanation: "LED Matrix P10 cocok untuk informasi masjid karena ukuran besar dan terang untuk outdoor."
-                    },
-                    {
-                        question: "Apa kelebihan TFT touchscreen?",
-                        options: ["Bisa membuat UI interaktif", "Lebih murah", "Lebih hemat daya", "Lebih kecil ukurannya"],
-                        correct: 0,
-                        explanation: "TFT touchscreen bisa membuat UI interaktif dengan tombol dan menu sentuh."
-                    },
-                    {
-                        question: "Berapa kabel yang dibutuhkan untuk OLED display I2C?",
-                        options: ["4 kabel (VCC, GND, SDA, SCL)", "8 kabel", "2 kabel (VCC, GND)", "6 kabel"],
-                        correct: 0,
-                        explanation: "OLED display I2C hanya membutuhkan 4 kabel: VCC, GND, SDA, dan SCL."
-                    }
-                ]
-            },
-            {
-                id: 6,
-                title: "Konektivitas dalam IoT",
-                icon: "fas fa-wifi",
-                description: "Mengenal cara perangkat IoT saling terhubung.",
-                content: `
-                    <h3>1. Pengertian Konektivitas IoT</h3>
-                    <p>Konektivitas adalah jalan komunikasi yang digunakan perangkat IoT untuk mengirim atau menerima data.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Analogi:</h4>
-                        <p>Jika sensor dan mikrokontroler ibarat indera dan otak, maka konektivitas adalah mulut dan telinga yang memudahkan alat-alat tersebut "ngobrol".</p>
-                    </div>
-                    
-                    <h3>2. Jenis-Jenis Konektivitas</h3>
-                    
-                    <h4>a. WiFi</h4>
-                    <p>Konektivitas paling umum pada ESP32 dan ESP8266.</p>
-                    <p><strong>Kelebihan:</strong> Cepat, mudah digunakan, cocok untuk dashboard lokal</p>
-                    <p><strong>Kekurangan:</strong> Jarak terbatas, butuh router/hotspot</p>
-                    
-                    <h4>b. Bluetooth / BLE</h4>
-                    <p>Dipakai untuk komunikasi jarak dekat.</p>
-                    <p><strong>Kelebihan:</strong> Tidak perlu WiFi, hemat daya, cepat untuk jarak <10m</p>
-                    <p><strong>Kekurangan:</strong> Tidak cocok untuk IoT online, tidak bisa akses dari jauh</p>
-                    
-                    <h4>c. LoRa / LoRaWAN</h4>
-                    <p>Teknologi jarak jauh berdaya rendah (bisa >5 km).</p>
-                    <p><strong>Kelebihan:</strong> Jangkauan sangat jauh, hemat daya, cocok daerah minim internet</p>
-                    <p><strong>Kekurangan:</strong> Kecepatan rendah, butuh gateway untuk LoRaWAN</p>
-                    
-                    <h4>d. NB-IoT / LTE-M</h4>
-                    <p>Menggunakan jaringan seluler (operator).</p>
-                    <p><strong>Kelebihan:</strong> Tidak butuh WiFi, jangkauan luas, stabil untuk monitoring jarak jauh</p>
-                    <p><strong>Kekurangan:</strong> Butuh kartu SIM, ada biaya bulanan</p>
-                `,
-                quiz: [
-                    {
-                        question: "Apa kelebihan utama WiFi dalam IoT?",
-                        options: ["Mudah digunakan dan cepat", "Jangkauan sangat jauh", "Tidak butuh router", "Gratis selamanya"],
-                        correct: 0,
-                        explanation: "WiFi mudah digunakan, cepat, dan cocok untuk aplikasi IoT lokal."
-                    },
-                    {
-                        question: "Konektivitas apa yang cocok untuk monitoring sawah jarak jauh?",
-                        options: ["LoRa", "WiFi", "Bluetooth", "Infrared"],
-                        correct: 0,
-                        explanation: "LoRa cocok untuk area luas seperti sawah karena jangkauannya mencapai beberapa kilometer."
-                    },
-                    {
-                        question: "Apa kelebihan Bluetooth BLE?",
-                        options: ["Hemat daya", "Jangkauan 10km", "Kecepatan tinggi", "Gratis data"],
-                        correct: 0,
-                        explanation: "Bluetooth Low Energy (BLE) dirancang untuk hemat daya."
-                    },
-                    {
-                        question: "Apa kekurangan NB-IoT?",
-                        options: ["Butuh kartu SIM dan ada biaya", "Jangkauan pendek", "Kecepatan terlalu tinggi", "Tidak aman"],
-                        correct: 0,
-                        explanation: "NB-IoT menggunakan jaringan seluler sehingga membutuhkan kartu SIM dan ada biaya operator."
-                    },
-                    {
-                        question: "Konektivitas apa yang tersedia di ESP32?",
-                        options: ["WiFi dan Bluetooth", "LoRa saja", "NB-IoT saja", "Hanya WiFi"],
-                        correct: 0,
-                        explanation: "ESP32 memiliki WiFi dan Bluetooth built-in."
-                    }
-                ]
-            },
-            {
-                id: 7,
-                title: "Cloud & Penyimpanan Data IoT",
-                icon: "fas fa-cloud",
-                description: "Tempat data terkumpul dan diolah dalam sistem IoT.",
-                content: `
-                    <h3>1. Apa Itu Cloud dalam IoT?</h3>
-                    <p>Cloud adalah ruang penyimpanan online tempat data dari IoT dikirim.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Analogi sederhana:</h4>
-                        <p>Cloud = laci penyimpanan di internet. Sensor → kirim data → disimpan di cloud → HP membaca data dari sana.</p>
-                    </div>
-                    
-                    <h3>2. Fungsi Cloud dalam IoT</h3>
-                    <ul>
-                        <li>Menyimpan data (suhu, tanah, jarak, dll.)</li>
-                        <li>Menampilkan data ke HP atau web</li>
-                        <li>Memberikan perintah balik ke perangkat</li>
-                        <li>Mengatur otomatisasi dari jarak jauh</li>
-                        <li>Backup data jangka panjang</li>
-                    </ul>
-                    
-                    <h3>3. Jenis Cloud untuk Pemula</h3>
-                    
-                    <h4>a. Blynk Cloud</h4>
-                    <p>Paling mudah untuk pemula dan remaja.</p>
-                    <p><strong>Kelebihan:</strong> Gratis untuk pemula, dashboard instan di HP, tidak perlu coding server</p>
-                    
-                    <h4>b. Firebase (Google)</h4>
-                    <p>Cepat dan stabil, mudah integrasi dengan Android.</p>
-                    <p><strong>Kelebihan:</strong> Cepat, stabil, gratis untuk penggunaan kecil</p>
-                    
-                    <h4>c. MQTT Cloud</h4>
-                    <p>Protokol ringan untuk IoT (HiveMQ, Mosquitto, EMQX).</p>
-                    <p><strong>Kelebihan:</strong> Sangat cepat, cocok untuk banyak perangkat, stabil</p>
-                    
-                    <h4>d. AWS IoT, Azure IoT, Google Cloud IoT</h4>
-                    <p>Lebih profesional, cocok skala besar.</p>
-                    <p><strong>Kelebihan:</strong> Otomatis, aman, besar</p>
-                    <p><strong>Kekurangan:</strong> Rumit untuk pemula, berbayar</p>
-                `,
-                quiz: [
-                    {
-                        question: "Apa fungsi utama cloud dalam IoT?",
-                        options: ["Menyimpan dan memproses data", "Memberikan daya pada sensor", "Menggantikan mikrokontroler", "Memperbesar sinyal WiFi"],
-                        correct: 0,
-                        explanation: "Cloud berfungsi sebagai tempat penyimpanan dan pengolahan data dari perangkat IoT."
-                    },
-                    {
-                        question: "Cloud mana yang paling mudah untuk pemula?",
-                        options: ["Blynk Cloud", "AWS IoT", "Google Cloud IoT", "Azure IoT"],
-                        correct: 0,
-                        explanation: "Blynk Cloud paling mudah karena tidak perlu coding server dan dashboard instan di HP."
-                    },
-                    {
-                        question: "Apa kelebihan Firebase?",
-                        options: ["Cepat dan mudah integrasi dengan Android", "Gratis tanpa batas", "Tidak perlu internet", "Otomatis memiliki display"],
-                        correct: 0,
-                        explanation: "Firebase cepat dan mudah diintegrasikan dengan aplikasi Android."
-                    },
-                    {
-                        question: "Apa itu MQTT?",
-                        options: ["Protokol ringan untuk IoT", "Jenis sensor suhu", "Merek mikrokontroler", "Software programming"],
-                        correct: 0,
-                        explanation: "MQTT adalah protokol komunikasi ringan yang populer untuk perangkat IoT."
-                    },
-                    {
-                        question: "Mengapa cloud penting untuk sistem IoT?",
-                        options: ["Akses data dari mana saja", "Menggantikan semua sensor", "Membuat alat lebih murah", "Mempercepat pemrograman"],
-                        correct: 0,
-                        explanation: "Cloud memungkinkan akses data dari mana saja dan kapan saja."
-                    }
-                ]
-            },
-            {
-                id: 8,
-                title: "Dashboard & UI dalam IoT",
-                icon: "fas fa-tachometer-alt",
-                description: "Tempat data ditampilkan agar mudah dipantau.",
-                content: `
-                    <h3>1. Apa Itu Dashboard IoT?</h3>
-                    <p>Dashboard adalah tampilan antarmuka yang berfungsi menampilkan data IoT dalam bentuk angka, grafik, tombol ON/OFF, indikator, dan status perangkat.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Definisi:</h4>
-                        <p>Dashboard = "layar kontrol pusat" untuk sistem IoT.</p>
-                    </div>
-                    
-                    <h3>2. Jenis Dashboard IoT</h3>
-                    
-                    <h4>a. Dashboard Web Lokal (ESP32 Web Server)</h4>
-                    <p>Tanpa internet, cukup WiFi lokal (AP Mode).</p>
-                    <p><strong>Kelebihan:</strong> Tidak perlu cloud, bisa diakses langsung dari HP</p>
-                    <p><strong>Kekurangan:</strong> Tidak bisa diakses saat jauh dari alat</p>
-                    
-                    <h4>b. Dashboard Aplikasi (Blynk)</h4>
-                    <p>Paling mudah untuk pemula.</p>
-                    <p><strong>Kelebihan:</strong> Drag & drop widget, tombol ON/OFF, grafik, chart</p>
-                    
-                    <h4>c. Dashboard Kustom (HTML/JS, Android Native)</h4>
-                    <p>Membutuhkan skill lebih, tetapi paling fleksibel.</p>
-                    <p><strong>Kelebihan:</strong> Tampilan bisa dibuat sangat modern, bisa tema khusus</p>
-                    
-                    <h3>3. Prinsip UI/UX untuk Remaja</h3>
-                    <ul>
-                        <li>Teks besar dan mudah dibaca</li>
-                        <li>Ikon sederhana (air, cahaya, suhu)</li>
-                        <li>Warna cerah namun tidak ramai</li>
-                        <li>Tombol besar (mudah disentuh)</li>
-                        <li>Responsif (cocok HP/tablet/TV)</li>
-                    </ul>
-                `,
-                quiz: [
-                    {
-                        question: "Apa fungsi dashboard dalam sistem IoT?",
-                        options: ["Menampilkan data dan kontrol perangkat", "Menyimpan program mikrokontroler", "Memberi daya pada sensor", "Memperkuat sinyal WiFi"],
-                        correct: 0,
-                        explanation: "Dashboard berfungsi sebagai antarmuka untuk menampilkan data dan mengontrol perangkat IoT."
-                    },
-                    {
-                        question: "Dashboard mana yang bisa digunakan tanpa internet?",
-                        options: ["Dashboard Web Lokal ESP32", "Blynk Cloud Dashboard", "Firebase Dashboard", "AWS IoT Dashboard"],
-                        correct: 0,
-                        explanation: "Dashboard web lokal ESP32 berjalan di jaringan WiFi lokal tanpa perlu internet."
-                    },
-                    {
-                        question: "Apa kelebihan dashboard Blynk?",
-                        options: ["Drag & drop widget", "Harus coding HTML", "Hanya untuk komputer", "Mahal"],
-                        correct: 0,
-                        explanation: "Blynk menyediakan widget yang bisa drag & drop tanpa coding kompleks."
-                    },
-                    {
-                        question: "Prinsip UI apa yang penting untuk dashboard?",
-                        options: ["Teks besar dan mudah dibaca", "Warna gelap semua", "Banyak animasi", "Tidak ada tombol"],
-                        correct: 0,
-                        explanation: "Teks yang besar dan mudah dibaca penting untuk kemudahan penggunaan."
-                    },
-                    {
-                        question: "Apa kelebihan dashboard kustom?",
-                        options: ["Fleksibel dan bisa tema khusus", "Paling mudah dibuat", "Tidak perlu programming", "Otomatis dibuat oleh ESP32"],
-                        correct: 0,
-                        explanation: "Dashboard kustom fleksibel dan bisa disesuaikan dengan kebutuhan khusus."
-                    }
-                ]
-            }
-        ];
-
+        // ============================================
+        // DATA MODUL YANG TERORGANISIR (SEMUA MODUL 1-8)
+        // ============================================
         const modulesData = [
             {
                 id: 1,
@@ -1655,11 +1410,291 @@
                     }
                 ]
             },
-            // Menambahkan modul 5-8 dari data additionalModules
-            ...additionalModules
+            {
+                id: 5,
+                title: "Display dalam IoT",
+                icon: "fas fa-tv",
+                description: "Mengenal 'wajah visual' dari sebuah sistem Internet of Things.",
+                content: `
+                    <h3>1. Apa Itu Display dalam IoT?</h3>
+                    <p>Display adalah komponen output visual yang digunakan untuk menampilkan data, pesan, status, atau informasi penting dari sistem IoT.</p>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Analogi:</h4>
+                        <p>Jika sensor = alat untuk membaca lingkungan, mikrokontroler = otak, aktuator = tangan/kaki, maka Display adalah mata dan wajah dari sistem.</p>
+                    </div>
+                    
+                    <h3>2. Jenis-Jenis Display</h3>
+                    
+                    <h4>a. OLED Display</h4>
+                    <p>Display kecil, hemat daya, sederhana, dan paling cocok untuk pemula.</p>
+                    <p><strong>Kelebihan:</strong> Mudah dipasang, hemat listrik, tampilan jernih</p>
+                    
+                    <h4>b. TFT Display</h4>
+                    <p>Display warna dengan tampilan cerah dan mendukung gambar.</p>
+                    <p><strong>Kelebihan:</strong> Full color, bisa menampilkan grafik, cocok untuk mini-dashboard</p>
+                    
+                    <h4>c. TFT Touchscreen</h4>
+                    <p>Display modern dengan kemampuan sentuh seperti layar HP.</p>
+                    <p><strong>Kelebihan:</strong> Bisa membuat UI interaktif, cocok untuk panel kontrol</p>
+                    
+                    <h4>d. LED Matrix</h4>
+                    <p>Display besar untuk informasi publik dan papan skor.</p>
+                    <p><strong>Kelebihan:</strong> Ukuran besar, sangat terang (outdoor), cocok untuk running text</p>
+                `,
+                quiz: [
+                    {
+                        question: "Apa fungsi display dalam sistem IoT?",
+                        options: ["Menampilkan data visual", "Mengukur suhu", "Menyimpan program", "Mengontrol relay"],
+                        correct: 0,
+                        explanation: "Display berfungsi untuk menampilkan data dan informasi dalam bentuk visual."
+                    },
+                    {
+                        question: "Display mana yang paling cocok untuk pemula?",
+                        options: ["OLED Display", "TFT Touchscreen", "LED Matrix P10", "LCD 16x2"],
+                        correct: 0,
+                        explanation: "OLED display paling cocok untuk pemula karena sederhana, hemat daya, dan mudah dipasang."
+                    },
+                    {
+                        question: "Display apa yang cocok untuk papan informasi masjid?",
+                        options: ["LED Matrix P10", "OLED 0.96", "TFT 1.8 inch", "LCD 20x4"],
+                        correct: 0,
+                        explanation: "LED Matrix P10 cocok untuk informasi masjid karena ukuran besar dan terang untuk outdoor."
+                    },
+                    {
+                        question: "Apa kelebihan TFT touchscreen?",
+                        options: ["Bisa membuat UI interaktif", "Lebih murah", "Lebih hemat daya", "Lebih kecil ukurannya"],
+                        correct: 0,
+                        explanation: "TFT touchscreen bisa membuat UI interaktif dengan tombol dan menu sentuh."
+                    },
+                    {
+                        question: "Berapa kabel yang dibutuhkan untuk OLED display I2C?",
+                        options: ["4 kabel (VCC, GND, SDA, SCL)", "8 kabel", "2 kabel (VCC, GND)", "6 kabel"],
+                        correct: 0,
+                        explanation: "OLED display I2C hanya membutuhkan 4 kabel: VCC, GND, SDA, dan SCL."
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Konektivitas dalam IoT",
+                icon: "fas fa-wifi",
+                description: "Mengenal cara perangkat IoT saling terhubung.",
+                content: `
+                    <h3>1. Pengertian Konektivitas IoT</h3>
+                    <p>Konektivitas adalah jalan komunikasi yang digunakan perangkat IoT untuk mengirim atau menerima data.</p>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Analogi:</h4>
+                        <p>Jika sensor dan mikrokontroler ibarat indera dan otak, maka konektivitas adalah mulut dan telinga yang memudahkan alat-alat tersebut "ngobrol".</p>
+                    </div>
+                    
+                    <h3>2. Jenis-Jenis Konektivitas</h3>
+                    
+                    <h4>a. WiFi</h4>
+                    <p>Konektivitas paling umum pada ESP32 dan ESP8266.</p>
+                    <p><strong>Kelebihan:</strong> Cepat, mudah digunakan, cocok untuk dashboard lokal</p>
+                    <p><strong>Kekurangan:</strong> Jarak terbatas, butuh router/hotspot</p>
+                    
+                    <h4>b. Bluetooth / BLE</h4>
+                    <p>Dipakai untuk komunikasi jarak dekat.</p>
+                    <p><strong>Kelebihan:</strong> Tidak perlu WiFi, hemat daya, cepat untuk jarak <10m</p>
+                    <p><strong>Kekurangan:</strong> Tidak cocok untuk IoT online, tidak bisa akses dari jauh</p>
+                    
+                    <h4>c. LoRa / LoRaWAN</h4>
+                    <p>Teknologi jarak jauh berdaya rendah (bisa >5 km).</p>
+                    <p><strong>Kelebihan:</strong> Jangkauan sangat jauh, hemat daya, cocok daerah minim internet</p>
+                    <p><strong>Kekurangan:</strong> Kecepatan rendah, butuh gateway untuk LoRaWAN</p>
+                    
+                    <h4>d. NB-IoT / LTE-M</h4>
+                    <p>Menggunakan jaringan seluler (operator).</p>
+                    <p><strong>Kelebihan:</strong> Tidak butuh WiFi, jangkauan luas, stabil untuk monitoring jarak jauh</p>
+                    <p><strong>Kekurangan:</strong> Butuh kartu SIM, ada biaya bulanan</p>
+                `,
+                quiz: [
+                    {
+                        question: "Apa kelebihan utama WiFi dalam IoT?",
+                        options: ["Mudah digunakan dan cepat", "Jangkauan sangat jauh", "Tidak butuh router", "Gratis selamanya"],
+                        correct: 0,
+                        explanation: "WiFi mudah digunakan, cepat, dan cocok untuk aplikasi IoT lokal."
+                    },
+                    {
+                        question: "Konektivitas apa yang cocok untuk monitoring sawah jarak jauh?",
+                        options: ["LoRa", "WiFi", "Bluetooth", "Infrared"],
+                        correct: 0,
+                        explanation: "LoRa cocok untuk area luas seperti sawah karena jangkauannya mencapai beberapa kilometer."
+                    },
+                    {
+                        question: "Apa kelebihan Bluetooth BLE?",
+                        options: ["Hemat daya", "Jangkauan 10km", "Kecepatan tinggi", "Gratis data"],
+                        correct: 0,
+                        explanation: "Bluetooth Low Energy (BLE) dirancang untuk hemat daya."
+                    },
+                    {
+                        question: "Apa kekurangan NB-IoT?",
+                        options: ["Butuh kartu SIM dan ada biaya", "Jangkauan pendek", "Kecepatan terlalu tinggi", "Tidak aman"],
+                        correct: 0,
+                        explanation: "NB-IoT menggunakan jaringan seluler sehingga membutuhkan kartu SIM dan ada biaya operator."
+                    },
+                    {
+                        question: "Konektivitas apa yang tersedia di ESP32?",
+                        options: ["WiFi dan Bluetooth", "LoRa saja", "NB-IoT saja", "Hanya WiFi"],
+                        correct: 0,
+                        explanation: "ESP32 memiliki WiFi dan Bluetooth built-in."
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "Cloud & Penyimpanan Data IoT",
+                icon: "fas fa-cloud",
+                description: "Tempat data terkumpul dan diolah dalam sistem IoT.",
+                content: `
+                    <h3>1. Apa Itu Cloud dalam IoT?</h3>
+                    <p>Cloud adalah ruang penyimpanan online tempat data dari IoT dikirim.</p>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Analogi sederhana:</h4>
+                        <p>Cloud = laci penyimpanan di internet. Sensor → kirim data → disimpan di cloud → HP membaca data dari sana.</p>
+                    </div>
+                    
+                    <h3>2. Fungsi Cloud dalam IoT</h3>
+                    <ul>
+                        <li>Menyimpan data (suhu, tanah, jarak, dll.)</li>
+                        <li>Menampilkan data ke HP atau web</li>
+                        <li>Memberikan perintah balik ke perangkat</li>
+                        <li>Mengatur otomatisasi dari jarak jauh</li>
+                        <li>Backup data jangka panjang</li>
+                    </ul>
+                    
+                    <h3>3. Jenis Cloud untuk Pemula</h3>
+                    
+                    <h4>a. Blynk Cloud</h4>
+                    <p>Paling mudah untuk pemula dan remaja.</p>
+                    <p><strong>Kelebihan:</strong> Gratis untuk pemula, dashboard instan di HP, tidak perlu coding server</p>
+                    
+                    <h4>b. Firebase (Google)</h4>
+                    <p>Cepat dan stabil, mudah integrasi dengan Android.</p>
+                    <p><strong>Kelebihan:</strong> Cepat, stabil, gratis untuk penggunaan kecil</p>
+                    
+                    <h4>c. MQTT Cloud</h4>
+                    <p>Protokol ringan untuk IoT (HiveMQ, Mosquitto, EMQX).</p>
+                    <p><strong>Kelebihan:</strong> Sangat cepat, cocok untuk banyak perangkat, stabil</p>
+                    
+                    <h4>d. AWS IoT, Azure IoT, Google Cloud IoT</h4>
+                    <p>Lebih profesional, cocok skala besar.</p>
+                    <p><strong>Kelebihan:</strong> Otomatis, aman, besar</p>
+                    <p><strong>Kekurangan:</strong> Rumit untuk pemula, berbayar</p>
+                `,
+                quiz: [
+                    {
+                        question: "Apa fungsi utama cloud dalam IoT?",
+                        options: ["Menyimpan dan memproses data", "Memberikan daya pada sensor", "Menggantikan mikrokontroler", "Memperbesar sinyal WiFi"],
+                        correct: 0,
+                        explanation: "Cloud berfungsi sebagai tempat penyimpanan dan pengolahan data dari perangkat IoT."
+                    },
+                    {
+                        question: "Cloud mana yang paling mudah untuk pemula?",
+                        options: ["Blynk Cloud", "AWS IoT", "Google Cloud IoT", "Azure IoT"],
+                        correct: 0,
+                        explanation: "Blynk Cloud paling mudah karena tidak perlu coding server dan dashboard instan di HP."
+                    },
+                    {
+                        question: "Apa kelebihan Firebase?",
+                        options: ["Cepat dan mudah integrasi dengan Android", "Gratis tanpa batas", "Tidak perlu internet", "Otomatis memiliki display"],
+                        correct: 0,
+                        explanation: "Firebase cepat dan mudah diintegrasikan dengan aplikasi Android."
+                    },
+                    {
+                        question: "Apa itu MQTT?",
+                        options: ["Protokol ringan untuk IoT", "Jenis sensor suhu", "Merek mikrokontroler", "Software programming"],
+                        correct: 0,
+                        explanation: "MQTT adalah protokol komunikasi ringan yang populer untuk perangkat IoT."
+                    },
+                    {
+                        question: "Mengapa cloud penting untuk sistem IoT?",
+                        options: ["Akses data dari mana saja", "Menggantikan semua sensor", "Membuat alat lebih murah", "Mempercepat pemrograman"],
+                        correct: 0,
+                        explanation: "Cloud memungkinkan akses data dari mana saja dan kapan saja."
+                    }
+                ]
+            },
+            {
+                id: 8,
+                title: "Dashboard & UI dalam IoT",
+                icon: "fas fa-tachometer-alt",
+                description: "Tempat data ditampilkan agar mudah dipantau.",
+                content: `
+                    <h3>1. Apa Itu Dashboard IoT?</h3>
+                    <p>Dashboard adalah tampilan antarmuka yang berfungsi menampilkan data IoT dalam bentuk angka, grafik, tombol ON/OFF, indikator, dan status perangkat.</p>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Definisi:</h4>
+                        <p>Dashboard = "layar kontrol pusat" untuk sistem IoT.</p>
+                    </div>
+                    
+                    <h3>2. Jenis Dashboard IoT</h3>
+                    
+                    <h4>a. Dashboard Web Lokal (ESP32 Web Server)</h4>
+                    <p>Tanpa internet, cukup WiFi lokal (AP Mode).</p>
+                    <p><strong>Kelebihan:</strong> Tidak perlu cloud, bisa diakses langsung dari HP</p>
+                    <p><strong>Kekurangan:</strong> Tidak bisa diakses saat jauh dari alat</p>
+                    
+                    <h4>b. Dashboard Aplikasi (Blynk)</h4>
+                    <p>Paling mudah untuk pemula.</p>
+                    <p><strong>Kelebihan:</strong> Drag & drop widget, tombol ON/OFF, grafik, chart</p>
+                    
+                    <h4>c. Dashboard Kustom (HTML/JS, Android Native)</h4>
+                    <p>Membutuhkan skill lebih, tetapi paling fleksibel.</p>
+                    <p><strong>Kelebihan:</strong> Tampilan bisa dibuat sangat modern, bisa tema khusus</p>
+                    
+                    <h3>3. Prinsip UI/UX untuk Remaja</h3>
+                    <ul>
+                        <li>Teks besar dan mudah dibaca</li>
+                        <li>Ikon sederhana (air, cahaya, suhu)</li>
+                        <li>Warna cerah namun tidak ramai</li>
+                        <li>Tombol besar (mudah disentuh)</li>
+                        <li>Responsif (cocok HP/tablet/TV)</li>
+                    </ul>
+                `,
+                quiz: [
+                    {
+                        question: "Apa fungsi dashboard dalam sistem IoT?",
+                        options: ["Menampilkan data dan kontrol perangkat", "Menyimpan program mikrokontroler", "Memberi daya pada sensor", "Memperkuat sinyal WiFi"],
+                        correct: 0,
+                        explanation: "Dashboard berfungsi sebagai antarmuka untuk menampilkan data dan mengontrol perangkat IoT."
+                    },
+                    {
+                        question: "Dashboard mana yang bisa digunakan tanpa internet?",
+                        options: ["Dashboard Web Lokal ESP32", "Blynk Cloud Dashboard", "Firebase Dashboard", "AWS IoT Dashboard"],
+                        correct: 0,
+                        explanation: "Dashboard web lokal ESP32 berjalan di jaringan WiFi lokal tanpa perlu internet."
+                    },
+                    {
+                        question: "Apa kelebihan dashboard Blynk?",
+                        options: ["Drag & drop widget", "Harus coding HTML", "Hanya untuk komputer", "Mahal"],
+                        correct: 0,
+                        explanation: "Blynk menyediakan widget yang bisa drag & drop tanpa coding kompleks."
+                    },
+                    {
+                        question: "Prinsip UI apa yang penting untuk dashboard?",
+                        options: ["Teks besar dan mudah dibaca", "Warna gelap semua", "Banyak animasi", "Tidak ada tombol"],
+                        correct: 0,
+                        explanation: "Teks yang besar dan mudah dibaca penting untuk kemudahan penggunaan."
+                    },
+                    {
+                        question: "Apa kelebihan dashboard kustom?",
+                        options: ["Fleksibel dan bisa tema khusus", "Paling mudah dibuat", "Tidak perlu programming", "Otomatis dibuat oleh ESP32"],
+                        correct: 0,
+                        explanation: "Dashboard kustom fleksibel dan bisa disesuaikan dengan kebutuhan khusus."
+                    }
+                ]
+            }
         ];
 
-        // [Kode JavaScript lainnya tetap sama seperti sebelumnya]
+        // ============================================
+        // DATA PRAKTEK
+        // ============================================
         const practiceData = {
             1: {
                 title: "Sistem Penyiraman Tanaman Otomatis",
@@ -1856,6 +1891,9 @@
             }
         };
 
+        // ============================================
+        // VARIABEL GLOBAL & FUNGSI UTAMA
+        // ============================================
         let currentQuiz = {
             moduleId: null,
             currentQuestion: 0,
@@ -1864,11 +1902,56 @@
             quizStarted: false
         };
 
+        // ============================================
+        // FUNGSI UTILITAS
+        // ============================================
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollToTopOnPageChange() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollToQuizTop() {
+            const quizSection = document.getElementById('quizSection');
+            if (quizSection) {
+                quizSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // ============================================
+        // FUNGSI INISIALISASI
+        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             loadModules();
             setupNavigation();
+            
+            // Tampilkan/sembunyikan tombol scroll to top
+            window.addEventListener('scroll', function() {
+                const scrollTopBtn = document.getElementById('scrollTopBtn');
+                if (scrollTopBtn) {
+                    if (window.scrollY > 300) {
+                        scrollTopBtn.classList.add('show');
+                    } else {
+                        scrollTopBtn.classList.remove('show');
+                    }
+                }
+            });
         });
 
+        // ============================================
+        // FUNGSI MODUL PEMBELAJARAN
+        // ============================================
         function loadModules() {
             const modulesList = document.getElementById('modulesList');
             modulesList.innerHTML = '';
@@ -1905,7 +1988,8 @@
         function openModule(moduleId) {
             const module = modulesData.find(m => m.id === moduleId);
             if (!module) return;
-            
+            scrollToTopOnPageChange();
+
             // Reset quiz state
             currentQuiz = {
                 moduleId: moduleId,
@@ -1969,8 +2053,8 @@
             }
         }
 
-        // Fungsi tombol Mulai di Beranda
         function startLearning() {
+            scrollToTopOnPageChange();
             // Update navigasi
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             document.querySelector('[data-page="modulesPage"]').classList.add('active');
@@ -1982,6 +2066,9 @@
             document.getElementById('modulesPage').classList.add('active');
         }
 
+        // ============================================
+        // FUNGSI QUIZ
+        // ============================================
         function loadQuestion(moduleId, questionIndex) {
             const module = modulesData.find(m => m.id === moduleId);
             if (!module || !module.quiz[questionIndex]) return;
@@ -2049,11 +2136,30 @@
 
         function toggleQuiz(moduleId) {
             const quizSection = document.getElementById('quizSection');
-            if (quizSection) {
-                quizSection.classList.toggle('active');
+            const module = modulesData.find(m => m.id === moduleId);
+            
+            if (quizSection && module) {
                 if (quizSection.classList.contains('active')) {
-                    currentQuiz.quizStarted = true;
-                    loadQuestion(moduleId, currentQuiz.currentQuestion);
+                    // Tutup quiz
+                    quizSection.classList.remove('active');
+                    currentQuiz.quizStarted = false;
+                } else {
+                    // Buka quiz - RESET KE AWAL
+                    currentQuiz = {
+                        moduleId: moduleId,
+                        currentQuestion: 0,
+                        score: 0,
+                        answers: [],
+                        quizStarted: true
+                    };
+                    
+                    quizSection.classList.add('active');
+                    loadQuestion(moduleId, 0);
+                    
+                    // Scroll ke atas quiz section
+                    setTimeout(() => {
+                        scrollToQuizTop();
+                    }, 100);
                 }
             }
         }
@@ -2114,6 +2220,11 @@
             if (currentQuiz.currentQuestion < module.quiz.length - 1) {
                 currentQuiz.currentQuestion++;
                 loadQuestion(currentQuiz.moduleId, currentQuiz.currentQuestion);
+                
+                // Scroll ke atas quiz section
+                setTimeout(() => {
+                    scrollToQuizTop();
+                }, 50);
             } else {
                 // End of quiz
                 alert(`Quiz selesai! Skor akhir: ${currentQuiz.score}/${module.quiz.length}`);
@@ -2126,6 +2237,11 @@
             if (currentQuiz.currentQuestion > 0) {
                 currentQuiz.currentQuestion--;
                 loadQuestion(currentQuiz.moduleId, currentQuiz.currentQuestion);
+                
+                // Scroll ke atas quiz section
+                setTimeout(() => {
+                    scrollToQuizTop();
+                }, 50);
             }
         }
 
@@ -2133,10 +2249,14 @@
             alert(`Modul ${moduleId} telah ditandai sebagai selesai!`);
         }
 
+        // ============================================
+        // FUNGSI PRAKTEK
+        // ============================================
         function openPractice(practiceId) {
             const practice = practiceData[practiceId];
             if (!practice) return;
-            
+            scrollToTopOnPageChange();
+
             document.getElementById('practicePage').classList.remove('active');
             document.getElementById('moduleContentPage').classList.add('active');
             
@@ -2265,13 +2385,17 @@
             alert(`Simulasi praktek ${practiceData[practiceId].title} akan segera tersedia!`);
         }
 
+        // ============================================
+        // FUNGSI NAVIGASI & UMUM
+        // ============================================
         function openWhatsApp(phoneNumber, name) {
-            const message = `Assalamualaikum ${name}, Saya peserta IoT IRMAL, mau bertanya:`;
+            const message = `Assalamualaikum ${name}, Saya peserta IoT IRMAL, Mau bertanya:`;
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
 
         function goBackToModules() {
+            scrollToTopOnPageChange();
             // Reset quiz state when leaving module
             currentQuiz = {
                 moduleId: null,
@@ -2287,6 +2411,7 @@
         }
 
         function goBackToPractice() {
+            scrollToTopOnPageChange();
             document.getElementById('moduleContentPage').classList.remove('active');
             document.getElementById('practicePage').classList.add('active');
             document.getElementById('moduleContentPage').innerHTML = '';
@@ -2311,6 +2436,9 @@
                     });
                     
                     document.getElementById(pageId).classList.add('active');
+                    
+                    // Scroll to top setelah berpindah halaman
+                    scrollToTopOnPageChange();
                 });
             });
         }
