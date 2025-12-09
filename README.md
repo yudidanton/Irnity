@@ -7,7 +7,7 @@
 Website pembelajaran Internet of Things (IoT) untuk Remaja Masjid Jami Al-Ikhlas (IRMAL).
 
 ## 🚀 Demo
-[https://yudidanton.github.io/Irnity/)
+[https://yudidanton.github.io/irnity/)
 
 ## ✨ Features
 - 📱 **Mobile-first Design** - Optimized for Android phones
