@@ -241,6 +241,46 @@
         .module-card:hover {
             transform: translateY(-5px);
         }
+        
+        /* Tambahkan di bagian akhir CSS sebelum @media queries */
+.btn-primary.orange {
+    background-color: #FF9800;
+}
+
+.btn-primary.orange:hover {
+    background-color: #F57C00;
+}
+
+.download-materials-container {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.download-card {
+    padding: 1.5rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.download-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.download-card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
 
         .module-icon {
             height: 120px;
@@ -854,7 +894,7 @@
             <div class="stats-container">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-microchip"></i></div>
-                    <h3>8</h3>
+                    <h3>10</h3>
                     <p>Modul Pembelajaran</p>
                 </div>
                 <div class="stat-card">
@@ -883,11 +923,68 @@
         </div>
 
         <!-- Modules Page -->
-        <div id="modulesPage" class="page-content">
-            <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">Daftar Modul Pembelajaran</h2>
-            <div class="modules-grid" id="modulesList"></div>
+        <!-- Tambahkan di dalam div dengan id="modulesPage" setelah div dengan id="modulesList" -->
+<div id="modulesPage" class="page-content">
+    <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">Daftar Modul Pembelajaran</h2>
+    <div class="modules-grid" id="modulesList"></div>
+    
+    <!-- TAMBAHAN: Tombol Download Materi Lengkap -->
+    <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
+            <i class="fas fa-download"></i> Download Materi Lengkap
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <!-- Materi Utama IoT -->
+            <div style="padding: 1.5rem; border: 2px solid var(--light-gray); border-radius: 10px;">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                        <i class="fas fa-microchip" style="color: white; font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--dark-color); margin-bottom: 5px;">Materi Utama IoT</h4>
+                        <p style="color: var(--gray-color); font-size: 0.9rem;">PDF Lengkap - 10 Modul</p>
+                    </div>
+                </div>
+                <p style="margin-bottom: 1.5rem; color: var(--dark-color);">
+                    Kumpulan lengkap 10 modul pembelajaran IoT untuk Remaja Masjid, mencakup dasar-dasar hingga proyek praktis.
+                </p>
+                <button class="btn-primary" onclick="downloadFullIoTMaterial()" style="width: 100%;">
+                    <i class="fas fa-file-pdf"></i> Download Materi Utama IoT (PDF)
+                </button>
+            </div>
+            
+            <!-- Materi Pendukung Elektronika -->
+            <div style="padding: 1.5rem; border: 2px solid var(--light-gray); border-radius: 10px;">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FF9800, #FF5722); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                        <i class="fas fa-bolt" style="color: white; font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--dark-color); margin-bottom: 5px;">Materi Pendukung Elektronika</h4>
+                        <p style="color: var(--gray-color); font-size: 0.9rem;">PDF Lengkap - Dasar Elektronika</p>
+                    </div>
+                </div>
+                <p style="margin-bottom: 1.5rem; color: var(--dark-color);">
+                    Pemahaman dasar komponen elektronika yang diperlukan untuk menguasai IoT, lengkap dengan rumus dan contoh.
+                </p>
+                <button class="btn-primary" onclick="downloadElectronicsMaterial()" style="width: 100%; background-color: #FF9800;">
+                    <i class="fas fa-file-pdf"></i> Download Materi Elektronika (PDF)
+                </button>
+            </div>
         </div>
-
+        
+        <div class="analogy-box" style="margin-top: 1.5rem;">
+            <h4>📚 Tips Belajar:</h4>
+            <ul>
+                <li>Download kedua materi sebagai referensi lengkap</li>
+                <li>Pelajari materi elektronika dasar terlebih dahulu jika masih pemula</li>
+                <li>Gunakan materi utama IoT sebagai panduan sistematis pembelajaran</li>
+                <li>Print materi jika perlu untuk belajar offline</li>
+            </ul>
+        </div>
+    </div>
+</div>
         <!-- Module Content Page -->
         <div id="moduleContentPage" class="page-content"></div>
 
@@ -1113,7 +1210,7 @@
 
     <script>
         // ============================================
-        // DATA MODUL YANG TERORGANISIR (SEMUA MODUL 1-8)
+        // DATA MODUL YANG TERORGANISIR (MODUL 1-10)
         // ============================================
         const modulesData = [
             {
@@ -1122,75 +1219,23 @@
                 icon: "fas fa-globe",
                 description: "Memahami konsep dasar Internet of Things, komponen, dan cara kerjanya.",
                 content: `
-                    <h3>1. Apa Itu IoT?</h3>
-                    <p><strong>IoT (Internet of Things)</strong> adalah sebuah sistem yang menghubungkan perangkat (elektronik) ke jaringan (internet, wifi, bluetooth dll), memungkinkan mereka mengumpulkan, mengirim, dan bertukar data secara cerdas.</p>
+                    <h3>Materi 1: Pendahuluan Internet of Things (IoT)</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Internet of Things (IoT) adalah teknologi yang menghubungkan perangkat-perangkat fisik ke internet, memungkinkan mereka untuk saling berkomunikasi dan berbagi data. Teknologi ini sangat relevan untuk remaja masjid karena dapat digunakan untuk membuat sistem otomatis di masjid seperti pengatur jadwal adzan, monitoring air wudhu, atau sistem pencahayaan cerdas yang hemat energi.</p>
+                    
+                    <h4>5 Poin Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi IoT</strong> IoT adalah jaringan perangkat fisik yang dilengkapi dengan sensor, software, dan teknologi lain untuk terhubung dan bertukar data dengan perangkat lain melalui internet. Contohnya: jam pintar, lampu yang bisa dikontrol lewat HP, atau sistem keamanan rumah otomatis.</li>
+                        <li><strong>Sejarah IoT</strong> Konsep IoT pertama kali muncul tahun 1982 dengan mesin Coca-Cola di Carnegie Mellon University yang bisa melaporkan isinya. Istilah "Internet of Things" baru dipopulerkan oleh Kevin Ashton tahun 1999. Sejak 2010-an, IoT berkembang pesat seiring murahnya sensor dan koneksi internet.</li>
+                        <li><strong>Sistem Kerja IoT</strong> IoT bekerja dengan 4 komponen utama: (1) Sensor untuk mengumpulkan data, (2) Koneksi internet untuk mengirim data, (3) Pemrosesan data di cloud atau server, (4) Aktuator atau tampilan untuk memberikan output/aksi. Contoh: sensor gerak mendeteksi jamaah → kirim data → server proses → lampu masjid menyala otomatis.</li>
+                        <li><strong>Contoh Penerapan IoT</strong> Di kehidupan sehari-hari: smartwatch, Google Home, kamera CCTV online. Di masjid bisa diterapkan untuk: jadwal adzan otomatis, monitoring donasi digital, sistem parkir pintar, kontrol AC berdasarkan jumlah jamaah, atau pengingat waktu sholat di smartphone jamaah.</li>
+                        <li><strong>Manfaat IoT</strong> IoT memberikan efisiensi waktu dan energi, meningkatkan kenyamanan, menghemat biaya operasional, memudahkan monitoring jarak jauh, dan memberikan data untuk pengambilan keputusan yang lebih baik. Untuk masjid: hemat listrik, pelayanan jamaah lebih baik, dan pengelolaan lebih mudah.</li>
+                    </ol>
                     
                     <div class="analogy-box">
                         <h4>💡 Definisi sederhana:</h4>
                         <p>IoT adalah konsep di mana benda-benda fisik bisa terhubung ke internet dan saling berkomunikasi.</p>
                     </div>
-                    
-                    <h4>Contoh IoT dalam kehidupan:</h4>
-                    <ul>
-                        <li>Lampu otomatis yang dikendalikan dari HP</li>
-                        <li>CCTV online (Sistem keamanan)</li>
-                        <li>Mobil pintar (industri)</li>
-                        <li>Sistem irigasi (pertanian)</li>
-                        <li>Health care monitoring (Rumah sakit)</li>
-                        <li>Sistem Tilang Elektronik (Lalu lintas)</li>
-                    </ul>
-                    
-                    <div class="analogy-box">
-                        <h4>🎯 Analogi:</h4>
-                        <p>Bayangkan semua benda di sekitar kita punya "otak kecil" (mikrokontroler) dan bisa ngobrol lewat internet. Jadinya mereka bisa bekerja lebih cerdas.</p>
-                    </div>
-                    
-                    <h3>2. Komponen Penting dalam IoT</h3>
-                    
-                    <h4>a. Sensor</h4>
-                    <p>Alat untuk <em>merasakan</em> sesuatu.</p>
-                    <ul>
-                        <li><strong>Analoginya:</strong> seperti mata, telinga, dan hidung pada manusia</li>
-                        <li><strong>Contoh:</strong> sensor suhu, sensor cahaya, sensor tanah</li>
-                    </ul>
-                    
-                    <h4>b. Aktuator</h4>
-                    <p>Alat yang <em>bergerak atau menggerakkan sesuatu</em> setelah mendapat perintah.</p>
-                    <ul>
-                        <li><strong>Contoh:</strong> motor pompa, relay, kipas</li>
-                    </ul>
-                    
-                    <h4>c. Mikrokontroler</h4>
-                    <p>Otak kecil yang memproses data sensor dan mengontrol aktuator.</p>
-                    <ul>
-                        <li><strong>Contoh:</strong> ESP32, ESP8266, Arduino</li>
-                        <li><strong>Analogi:</strong> seperti otak manusia yang memutuskan "apa yang harus dilakukan"</li>
-                    </ul>
-                    
-                    <h4>d. Cloud / Server (Awan)</h4>
-                    <p>Tempat penyimpanan data online.</p>
-                    <ul>
-                        <li><strong>Analogi:</strong> laci penyimpanan di internet</li>
-                        <li><strong>Contoh:</strong> Blynk Cloud, Google Firebase</li>
-                    </ul>
-                    
-                    <h3>3. Bagaimana IoT Bekerja?</h3>
-                    <ol>
-                        <li><strong>Sensor membaca kondisi lingkungan</strong><br>(misal: tanah kering, suhu panas, cahaya gelap)</li>
-                        <li><strong>Mikrokontroler menerima data sensor</strong><br>(misal: ESP32 membaca nilai tanah = kering)</li>
-                        <li><strong>Mikrokontroler membuat keputusan</strong><br>(misal: "kalau tanah kering, hidupkan pompa")</li>
-                        <li><strong>Aktuator menjalankan perintah</strong><br>(pompa atau lampu menyala)</li>
-                        <li><strong>Data dikirim ke HP / internet</strong><br>(tampilan di aplikasi Blynk atau web)</li>
-                    </ol>
-                    
-                    <h3>4. Keuntungan Belajar IoT</h3>
-                    <ol>
-                        <li>Meningkatkan kreativitas dan inovasi</li>
-                        <li>Melatih logika dan problem solving</li>
-                        <li>Bekal karir masa depan (teknologi, engineering, IT)</li>
-                        <li>Bermanfaat untuk masjid dan masyarakat</li>
-                        <li>Membiasakan diri berpikir ilmiah dan terstruktur</li>
-                    </ol>
                 `,
                 quiz: [
                     {
@@ -1200,28 +1245,28 @@
                         explanation: "IoT adalah singkatan dari Internet of Things, yang berarti Internet untuk Segala Benda."
                     },
                     {
-                        question: "Apa fungsi sensor dalam sistem IoT?",
-                        options: ["Merasakan kondisi lingkungan", "Menggerakkan perangkat", "Menyimpan data", "Menampilkan informasi"],
-                        correct: 0,
-                        explanation: "Sensor berfungsi sebagai indera yang membaca kondisi lingkungan seperti suhu, cahaya, atau kelembapan."
+                        question: "Siapa yang pertama kali mempopulerkan istilah \"Internet of Things\"?",
+                        options: ["Bill Gates", "Steve Jobs", "Mark Zuckerberg", "Kevin Ashton"],
+                        correct: 3,
+                        explanation: "Kevin Ashton mempopulerkan istilah \"Internet of Things\" pada tahun 1999."
                     },
                     {
-                        question: "Manakah yang termasuk contoh mikrokontroler?",
-                        options: ["ESP32", "Lampu LED", "Baterai", "Kabel USB"],
-                        correct: 0,
-                        explanation: "ESP32 adalah salah satu mikrokontroler populer yang digunakan dalam proyek IoT."
+                        question: "Berapa komponen utama dalam sistem kerja IoT?",
+                        options: ["2 komponen", "3 komponen", "4 komponen", "5 komponen"],
+                        correct: 2,
+                        explanation: "IoT bekerja dengan 4 komponen utama: sensor, koneksi internet, pemrosesan data, dan aktuator/tampilan."
                     },
                     {
-                        question: "Apa fungsi aktuator dalam IoT?",
-                        options: ["Menjalankan perintah fisik", "Membaca data sensor", "Menyimpan program", "Menghubungkan ke internet"],
-                        correct: 0,
-                        explanation: "Aktuator adalah komponen yang melakukan aksi fisik seperti menyalakan pompa atau lampu."
+                        question: "Manakah yang BUKAN contoh penerapan IoT di masjid?",
+                        options: ["Jadwal adzan otomatis", "Buku catatan manual", "Monitoring donasi digital", "Sistem parkir pintar"],
+                        correct: 1,
+                        explanation: "Buku catatan manual bukan contoh penerapan IoT karena tidak melibatkan teknologi IoT."
                     },
                     {
-                        question: "Apa contoh penerapan IoT di masjid?",
-                        options: ["Kran wudhu otomatis", "Speaker azan", "Karpet shalat", "Mimbar kayu"],
-                        correct: 0,
-                        explanation: "Kran wudhu otomatis adalah penerapan IoT yang dapat menghemat air dan meningkatkan kebersihan."
+                        question: "Apa manfaat utama IoT untuk pengelolaan masjid?",
+                        options: ["Membuat masjid terlihat modern saja", "Efisiensi energi dan kemudahan monitoring", "Mengganti semua petugas masjid", "Hanya untuk hiasan"],
+                        correct: 1,
+                        explanation: "IoT memberikan efisiensi energi dan kemudahan monitoring untuk pengelolaan masjid yang lebih baik."
                     }
                 ]
             },
@@ -1231,502 +1276,644 @@
                 icon: "fas fa-thermometer-half",
                 description: "Mengenal berbagai jenis sensor dan fungsinya dalam sistem IoT.",
                 content: `
-                    <h3>1. Pengertian Sensor</h3>
-                    <p><strong>Sensor</strong> adalah komponen elektronik yang berfungsi <strong>mendeteksi, merasakan, atau mengukur</strong> kondisi fisik di sekitarnya.</p>
+                    <h3>Materi 2: Sensor dalam IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Sensor adalah "mata dan telinga" dari sistem IoT yang berfungsi menangkap kondisi lingkungan dan mengubahnya menjadi data digital. Dalam konteks masjid, sensor sangat berguna untuk mendeteksi kehadiran jamaah, suhu ruangan, kelembaban, kualitas udara, hingga level air di tempat wudhu. Memahami sensor adalah langkah penting dalam membangun sistem IoT yang efektif.</p>
+                    
+                    <h4>5 Poin Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi Sensor</strong> Sensor adalah perangkat yang dapat mendeteksi perubahan fisik di lingkungan (seperti suhu, cahaya, gerakan, suara) dan mengubahnya menjadi sinyal listrik yang bisa dibaca oleh mikrokontroler. Sensor bertindak sebagai "indra" bagi sistem IoT untuk memahami kondisi sekitarnya.</li>
+                        <li><strong>Fungsi Sensor dalam IoT</strong> Sensor berfungsi untuk: mengumpulkan data dari lingkungan, mengubah besaran fisik menjadi sinyal digital, memberikan input untuk pengambilan keputusan sistem, memicu aksi otomatis, dan monitoring kondisi real-time. Misalnya sensor PIR mendeteksi gerakan jamaah untuk menyalakan lampu otomatis.</li>
+                        <li><strong>Jenis-jenis Sensor</strong> Berbagai jenis sensor: (1) Sensor suhu (DHT22, LM35), (2) Sensor gerak/PIR untuk deteksi kehadiran, (3) Sensor cahaya/LDR untuk mengukur intensitas cahaya, (4) Sensor jarak (Ultrasonic) untuk mengukur ketinggian air, (5) Sensor kelembaban untuk kontrol AC. Setiap sensor punya kegunaan spesifik.</li>
+                        <li><strong>Cara Kerja Sensor</strong> Sensor bekerja dengan prinsip: mendeteksi perubahan fisik → mengubah ke sinyal analog → dikonversi ke digital (ADC) → dikirim ke mikrokontroler → data diproses → menghasilkan output. Contoh: sensor suhu DHT22 membaca suhu 28°C → kirim data → Arduino proses → jika >27°C nyalakan kipas.</li>
+                        <li><strong>Tips Memilih Sensor yang Tepat</strong> Pertimbangkan: (1) Akurasi yang dibutuhkan, (2) Range pengukuran yang sesuai, (3) Konsumsi daya (penting untuk baterai), (4) Harga dan ketersediaan, (5) Kemudahan penggunaan dan kompatibilitas. Untuk pemula, pilih sensor yang banyak tutorialnya seperti DHT22 atau sensor PIR.</li>
+                    </ol>
                     
                     <div class="analogy-box">
                         <h4>💡 Penjelasan sederhana:</h4>
                         <p>Sensor itu seperti <em>indera</em> pada manusia (mata, telinga, kulit), yang memberi informasi ke otak agar bisa memutuskan sesuatu.</p>
                     </div>
-                    
-                    <h3>2. Jenis-Jenis Sensor</h3>
-                    
-                    <h4>a. Sensor Kelembapan Tanah (Soil Moisture Sensor)</h4>
-                    <p>Untuk mendeteksi tingkat kelembapan tanah.</p>
-                    <p><strong>Contoh penggunaan:</strong> Sistem penyiram tanaman otomatis</p>
-                    
-                    <h4>b. Sensor Suhu (Temperature Sensor)</h4>
-                    <p>Seperti NTC, DHT11, DHT22, DS18B20.</p>
-                    <p><strong>Contoh penggunaan:</strong> Monitoring suhu ruangan masjid, Kontrol kipas otomatis</p>
-                    
-                    <h4>c. Sensor Cahaya (LDR)</h4>
-                    <p>LDR (Light Dependent Resistor) mendeteksi intensitas cahaya.</p>
-                    <p><strong>Contoh penggunaan:</strong> Lampu otomatis ketika gelap</p>
-                    
-                    <h4>d. Sensor Jarak (Ultrasonic Sensor HC-SR04)</h4>
-                    <p>Mengukur jarak dengan pantulan suara ultrasonik.</p>
-                    <p><strong>Contoh penggunaan:</strong> Parkir otomatis, Deteksi tempat wudhu penuh/kosong</p>
-                    
-                    <h4>e. Sensor Gerak (PIR Motion Sensor)</h4>
-                    <p>Mendeteksi pergerakan manusia.</p>
-                    <p><strong>Contoh penggunaan:</strong> Lampu menyala saat ada orang lewat, Sistem keamanan masjid</p>
-                    
-                    <h3>3. Sensor Analog vs Digital</h3>
-                    
-                    <h4>A. Sensor Analog</h4>
-                    <p>Menghasilkan output berupa tegangan yang berubah-ubah.</p>
-                    <p><strong>Contoh:</strong> soil moisture, LDR, NTC</p>
-                    
-                    <h4>B. Sensor Digital</h4>
-                    <p>Menghasilkan data ON/OFF atau nilai digital tertentu.</p>
-                    <p><strong>Contoh:</strong> PIR, sensor jarak ultrasonic, DHT11</p>
                 `,
                 quiz: [
                     {
-                        question: "Sensor apa yang digunakan untuk mendeteksi tingkat kelembapan tanah?",
-                        options: ["Soil Moisture Sensor", "Temperature Sensor", "PIR Sensor", "Ultrasonic Sensor"],
-                        correct: 0,
-                        explanation: "Soil Moisture Sensor khusus dirancang untuk mengukur kelembapan tanah."
+                        question: "Apa fungsi utama sensor dalam sistem IoT?",
+                        options: ["Menampilkan data di layar", "Mendeteksi perubahan fisik dan mengubahnya menjadi sinyal listrik", "Menyimpan data di cloud", "Menghubungkan ke internet"],
+                        correct: 1,
+                        explanation: "Sensor berfungsi mendeteksi perubahan fisik di lingkungan dan mengubahnya menjadi sinyal listrik."
                     },
                     {
-                        question: "Apa fungsi sensor PIR?",
-                        options: ["Mendeteksi gerakan manusia", "Mengukur suhu", "Mengukur jarak", "Mendeteksi cahaya"],
-                        correct: 0,
-                        explanation: "PIR (Passive Infrared) sensor mendeteksi pergerakan manusia berdasarkan perubahan panas."
+                        question: "Sensor apakah yang cocok untuk mendeteksi kehadiran jamaah di masjid?",
+                        options: ["Sensor suhu (DHT22)", "Sensor cahaya (LDR)", "Sensor gerak (PIR)", "Sensor kelembaban"],
+                        correct: 2,
+                        explanation: "Sensor PIR (Passive Infrared) cocok untuk mendeteksi gerakan dan kehadiran manusia."
                     },
                     {
-                        question: "Sensor mana yang termasuk sensor analog?",
-                        options: ["LDR", "PIR", "DHT11", "Ultrasonic"],
+                        question: "Apa kepanjangan dari PIR dalam sensor PIR?",
+                        options: ["Passive Infrared", "Power Infrared Receiver", "Positive Internal Resistance", "Passive Internal Reader"],
                         correct: 0,
-                        explanation: "LDR menghasilkan nilai analog yang berubah sesuai intensitas cahaya."
+                        explanation: "PIR adalah singkatan dari Passive Infrared."
                     },
                     {
-                        question: "Apa perbedaan sensor analog dan digital?",
-                        options: ["Analog: nilai berubah-ubah, Digital: ON/OFF", "Analog: mahal, Digital: murah", "Analog: cepat, Digital: lambat", "Analog: besar, Digital: kecil"],
-                        correct: 0,
-                        explanation: "Sensor analog menghasilkan nilai kontinu, sedangkan digital menghasilkan nilai diskrit (biasanya 0 atau 1)."
+                        question: "Sensor ultrasonic biasanya digunakan untuk mengukur apa?",
+                        options: ["Suhu ruangan", "Intensitas cahaya", "Jarak atau ketinggian", "Kelembaban udara"],
+                        correct: 2,
+                        explanation: "Sensor ultrasonic digunakan untuk mengukur jarak atau ketinggian dengan gelombang suara."
                     },
                     {
-                        question: "Sensor apa yang cocok untuk lampu otomatis di masjid?",
-                        options: ["LDR", "Soil Moisture", "Temperature", "Gas Sensor"],
-                        correct: 0,
-                        explanation: "LDR dapat mendeteksi cahaya gelap dan menyalakan lampu otomatis."
+                        question: "Faktor apa yang TIDAK perlu dipertimbangkan saat memilih sensor?",
+                        options: ["Akurasi pengukuran", "Warna casing sensor", "Konsumsi daya", "Kompatibilitas dengan mikrokontroler"],
+                        correct: 1,
+                        explanation: "Warna casing sensor tidak relevan dengan performa dan fungsi sensor."
                     }
                 ]
             },
             {
                 id: 3,
-                title: "Mikrokontroler",
-                icon: "fas fa-microchip",
-                description: "Mengenal 'otak kecil' yang menggerakkan perangkat elektronik.",
-                content: `
-                    <h3>1. Apa Itu Mikrokontroler?</h3>
-                    <p>Mikrokontroler adalah chip elektronik yang di dalamnya sudah terdapat:</p>
-                    <ul>
-                        <li>CPU (otak pemroses)</li>
-                        <li>Flash Memory (penyimpan program)</li>
-                        <li>RAM (penyimpan data sementara)</li>
-                        <li>Pin I/O (penghubung ke sensor & alat)</li>
-                    </ul>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Bahasa Sehari-Hari:</h4>
-                        <p>Mikrokontroler adalah "otak kecil" yang bekerja secara otomatis sesuai program. Ia bisa membaca sensor, memproses logika, dan menggerakkan alat.</p>
-                    </div>
-                    
-                    <h3>2. Mengapa Mikrokontroler Penting?</h3>
-                    <p>Hampir semua alat modern memakai mikrokontroler:</p>
-                    <ul>
-                        <li><strong>Mesin cuci</strong> - Atur putaran, level air, waktu</li>
-                        <li><strong>AC</strong> - Baca suhu & atur kompresor</li>
-                        <li><strong>Dispenser</strong> - Matikan pemanas saat air panas</li>
-                        <li><strong>Smart home</strong> - Kontrol lampu, pintu, tirai otomatis</li>
-                    </ul>
-                    
-                    <h3>3. Contoh Mikrokontroler untuk Pemula</h3>
-                    <ul>
-                        <li><strong>Arduino Uno</strong> - Mudah dipelajari, banyak tutorial</li>
-                        <li><strong>ESP8266</strong> - Murah, punya WiFi</li>
-                        <li><strong>ESP32</strong> - Paling canggih, ada WiFi + Bluetooth</li>
-                    </ul>
-                    
-                    <h3>4. Perbedaan Mikrokontroler dan Mikroprosesor</h3>
-                    <div class="analogy-box">
-                        <p><strong>Mikrokontroler</strong> = otak kecil untuk 1 alat<br>
-                        <strong>Mikroprosesor</strong> = otak besar untuk komputer</p>
-                    </div>
-                `,
-                quiz: [
-                    {
-                        question: "Apa itu mikrokontroler?",
-                        options: ["Chip elektronik dengan CPU, memori, dan I/O", "Alat untuk menyolder", "Software untuk programming", "Kabel penghubung"],
-                        correct: 0,
-                        explanation: "Mikrokontroler adalah chip lengkap yang berisi semua komponen dasar untuk sistem embedded."
-                    },
-                    {
-                        question: "Manakah kelebihan ESP32 dibanding Arduino Uno?",
-                        options: ["Memiliki WiFi dan Bluetooth", "Lebih murah", "Lebih besar ukurannya", "Tidak perlu programming"],
-                        correct: 0,
-                        explanation: "ESP32 memiliki WiFi dan Bluetooth built-in, sedangkan Arduino Uno tidak."
-                    },
-                    {
-                        question: "Apa fungsi pin I/O pada mikrokontroler?",
-                        options: ["Menghubungkan ke sensor dan aktuator", "Menyimpan program", "Memberi daya pada board", "Menampilkan gambar"],
-                        correct: 0,
-                        explanation: "Pin Input/Output digunakan untuk berkomunikasi dengan komponen eksternal."
-                    },
-                    {
-                        question: "Dimana program disimpan di mikrokontroler?",
-                        options: ["Flash Memory", "RAM", "Harddisk", "Cloud"],
-                        correct: 0,
-                        explanation: "Program disimpan di Flash Memory yang tetap tersimpan meski daya dimatikan."
-                    },
-                    {
-                        question: "Mikrokontroler mana yang paling cocok untuk proyek IoT?",
-                        options: ["ESP32", "Arduino Uno", "Raspberry Pi", "STM32"],
-                        correct: 0,
-                        explanation: "ESP32 cocok untuk IoT karena memiliki WiFi dan Bluetooth built-in."
-                    }
-                ]
-            },
-            {
-                id: 4,
-                title: "Aktuator dalam IoT",
-                icon: "fas fa-cogs",
-                description: "Mengenal 'tangan & kaki' yang menjalankan perintah dalam sistem IoT.",
-                content: `
-                    <h3>1. Apa Itu Aktuator?</h3>
-                    <p>Aktuator adalah komponen elektronik yang melakukan aksi fisik setelah menerima perintah dari mikrokontroler.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Analogi:</h4>
-                        <p>Jika sensor adalah indera, dan mikrokontroler adalah otaknya, maka aktuator adalah tangan/kaki yang menjalankan perintah.</p>
-                    </div>
-                    
-                    <h3>2. Jenis-Jenis Aktuator</h3>
-                    
-                    <h4>a. Relay</h4>
-                    <p>Saklar otomatis yang dikendalikan sinyal digital dari mikrokontroler.</p>
-                    <p><strong>Fungsi:</strong> Menghidupkan/mematikan beban 220V atau 5V/12V</p>
-                    
-                    <h4>b. Motor DC</h4>
-                    <p>Motor yang berputar ketika diberi tegangan.</p>
-                    <p><strong>Dipakai pada:</strong> robot mini, alat pengaduk otomatis</p>
-                    
-                    <h4>c. Servo Motor</h4>
-                    <p>Motor yang dapat bergerak ke sudut tertentu (0°-180°).</p>
-                    <p><strong>Fungsi:</strong> Membuka pintu otomatis, menggerakkan tangan robot</p>
-                    
-                    <h4>d. Solenoid</h4>
-                    <p>Aktuator berbasis elektromagnet untuk kunci pintu otomatis dan katup air.</p>
-                    
-                    <h4>e. Buzzer</h4>
-                    <p>Aktuator yang menghasilkan suara untuk alarm atau notifikasi.</p>
-                `,
-                quiz: [
-                    {
-                        question: "Apa fungsi relay dalam sistem IoT?",
-                        options: ["Menghidupkan/mematikan perangkat listrik", "Mengukur suhu", "Menampilkan data", "Menyimpan program"],
-                        correct: 0,
-                        explanation: "Relay berfungsi sebagai saklar elektronik yang dapat mengontrol perangkat listrik besar."
-                    },
-                    {
-                        question: "Aktuator apa yang digunakan untuk kran air otomatis?",
-                        options: ["Solenoid Valve", "Motor DC", "Servo Motor", "Buzzer"],
-                        correct: 0,
-                        explanation: "Solenoid valve adalah aktuator yang tepat untuk mengontrol aliran air."
-                    },
-                    {
-                        question: "Apa perbedaan motor DC dan servo?",
-                        options: ["Servo dapat bergerak ke sudut tertentu", "Motor DC lebih murah", "Servo lebih cepat", "Motor DC lebih kecil"],
-                        correct: 0,
-                        explanation: "Servo motor dapat dikontrol untuk bergerak ke sudut tertentu, sedangkan DC motor hanya berputar."
-                    },
-                    {
-                        question: "Aktuator apa yang menghasilkan suara?",
-                        options: ["Buzzer", "Relay", "Solenoid", "Motor DC"],
-                        correct: 0,
-                        explanation: "Buzzer adalah aktuator yang mengubah sinyal listrik menjadi suara."
-                    },
-                    {
-                        question: "Mengapa relay penting dalam proyek IoT?",
-                        options: ["Dapat mengontrol perangkat 220V", "Dapat mengukur jarak", "Dapat menyimpan data", "Dapat menghubungkan WiFi"],
-                        correct: 0,
-                        explanation: "Relay memungkinkan mikrokontroler 3.3V/5V mengontrol perangkat listrik rumah 220V."
-                    }
-                ]
-            },
-            {
-                id: 5,
-                title: "Display dalam IoT",
-                icon: "fas fa-tv",
-                description: "Mengenal 'wajah visual' dari sebuah sistem Internet of Things.",
-                content: `
-                    <h3>1. Apa Itu Display dalam IoT?</h3>
-                    <p>Display adalah komponen output visual yang digunakan untuk menampilkan data, pesan, status, atau informasi penting dari sistem IoT.</p>
-                    
-                    <div class="analogy-box">
-                        <h4>💡 Analogi:</h4>
-                        <p>Jika sensor = alat untuk membaca lingkungan, mikrokontroler = otak, aktuator = tangan/kaki, maka Display adalah mata dan wajah dari sistem.</p>
-                    </div>
-                    
-                    <h3>2. Jenis-Jenis Display</h3>
-                    
-                    <h4>a. OLED Display</h4>
-                    <p>Display kecil, hemat daya, sederhana, dan paling cocok untuk pemula.</p>
-                    <p><strong>Kelebihan:</strong> Mudah dipasang, hemat listrik, tampilan jernih</p>
-                    
-                    <h4>b. TFT Display</h4>
-                    <p>Display warna dengan tampilan cerah dan mendukung gambar.</p>
-                    <p><strong>Kelebihan:</strong> Full color, bisa menampilkan grafik, cocok untuk mini-dashboard</p>
-                    
-                    <h4>c. TFT Touchscreen</h4>
-                    <p>Display modern dengan kemampuan sentuh seperti layar HP.</p>
-                    <p><strong>Kelebihan:</strong> Bisa membuat UI interaktif, cocok untuk panel kontrol</p>
-                    
-                    <h4>d. LED Matrix</h4>
-                    <p>Display besar untuk informasi publik dan papan skor.</p>
-                    <p><strong>Kelebihan:</strong> Ukuran besar, sangat terang (outdoor), cocok untuk running text</p>
-                `,
-                quiz: [
-                    {
-                        question: "Apa fungsi display dalam sistem IoT?",
-                        options: ["Menampilkan data visual", "Mengukur suhu", "Menyimpan program", "Mengontrol relay"],
-                        correct: 0,
-                        explanation: "Display berfungsi untuk menampilkan data dan informasi dalam bentuk visual."
-                    },
-                    {
-                        question: "Display mana yang paling cocok untuk pemula?",
-                        options: ["OLED Display", "TFT Touchscreen", "LED Matrix P10", "LCD 16x2"],
-                        correct: 0,
-                        explanation: "OLED display paling cocok untuk pemula karena sederhana, hemat daya, dan mudah dipasang."
-                    },
-                    {
-                        question: "Display apa yang cocok untuk papan informasi masjid?",
-                        options: ["LED Matrix P10", "OLED 0.96", "TFT 1.8 inch", "LCD 20x4"],
-                        correct: 0,
-                        explanation: "LED Matrix P10 cocok untuk informasi masjid karena ukuran besar dan terang untuk outdoor."
-                    },
-                    {
-                        question: "Apa kelebihan TFT touchscreen?",
-                        options: ["Bisa membuat UI interaktif", "Lebih murah", "Lebih hemat daya", "Lebih kecil ukurannya"],
-                        correct: 0,
-                        explanation: "TFT touchscreen bisa membuat UI interaktif dengan tombol dan menu sentuh."
-                    },
-                    {
-                        question: "Berapa kabel yang dibutuhkan untuk OLED display I2C?",
-                        options: ["4 kabel (VCC, GND, SDA, SCL)", "8 kabel", "2 kabel (VCC, GND)", "6 kabel"],
-                        correct: 0,
-                        explanation: "OLED display I2C hanya membutuhkan 4 kabel: VCC, GND, SDA, dan SCL."
-                    }
-                ]
-            },
-            {
-                id: 6,
                 title: "Konektivitas dalam IoT",
                 icon: "fas fa-wifi",
                 description: "Mengenal cara perangkat IoT saling terhubung.",
                 content: `
-                    <h3>1. Pengertian Konektivitas IoT</h3>
-                    <p>Konektivitas adalah jalan komunikasi yang digunakan perangkat IoT untuk mengirim atau menerima data.</p>
+                    <h3>Materi 3: Konektivitas dalam IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Konektivitas adalah jantung dari Internet of Things yang memungkinkan perangkat untuk saling berkomunikasi dan berbagi data. Tanpa konektivitas, sensor dan aktuator hanya akan bekerja sendiri-sendiri tanpa koordinasi. Dalam pengembangan sistem IoT untuk masjid, memilih jenis konektivitas yang tepat akan menentukan efisiensi, biaya, dan kehandalan sistem secara keseluruhan.</p>
+                    
+                    <h4>Hal Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi Konektivitas IoT</strong> Konektivitas IoT adalah teknologi komunikasi yang menghubungkan perangkat IoT ke internet atau ke perangkat lain untuk bertukar data. Ini mencakup berbagai protokol seperti WiFi, Bluetooth, LoRa, Zigbee, dan seluler (4G/5G). Konektivitas memastikan data sensor dapat dikirim ke cloud dan perintah dapat diterima aktuator.</li>
+                        <li><strong>Jenis-jenis Konektivitas IoT</strong> Ada beberapa jenis konektivitas: (1) WiFi - jarak pendek, bandwidth tinggi, cocok untuk indoor, (2) Bluetooth/BLE - hemat daya, jarak pendek, untuk wearable, (3) LoRa - jarak jauh (km), hemat daya, untuk sensor outdoor, (4) Zigbee - mesh network, hemat energi, (5) Seluler (4G/5G) - coverage luas tapi mahal dan boros daya.</li>
+                        <li><strong>Protokol Komunikasi IoT</strong> Protokol penting dalam IoT: (1) MQTT - ringan, efisien untuk IoT, publish-subscribe, (2) HTTP/HTTPS - standar web, mudah tapi lebih berat, (3) CoAP - mirip HTTP tapi lebih ringan, (4) WebSocket - komunikasi real-time dua arah. Untuk masjid, MQTT cocok karena ringan dan reliable untuk monitoring real-time.</li>
+                        <li><strong>Pertimbangan Memilih Konektivitas</strong> Faktor penting: (1) Jarak jangkauan (indoor masjid: WiFi, area parkir luas: LoRa), (2) Konsumsi daya (sensor baterai: BLE/LoRa, power supply: WiFi), (3) Bandwidth (streaming video: WiFi, data sensor: LoRa cukup), (4) Biaya (WiFi murah, seluler ada biaya bulanan), (5) Keamanan data (enkripsi, autentikasi).</li>
+                        <li><strong>Keamanan Konektivitas IoT</strong> Keamanan sangat penting: (1) Gunakan enkripsi (SSL/TLS, WPA2/WPA3), (2) Autentikasi perangkat (token, sertifikat), (3) Update firmware berkala, (4) Gunakan password kuat, (5) Pisahkan jaringan IoT dari jaringan utama. Untuk masjid, lindungi data donasi dan privasi jamaah dengan enkripsi yang baik.</li>
+                    </ol>
                     
                     <div class="analogy-box">
                         <h4>💡 Analogi:</h4>
                         <p>Jika sensor dan mikrokontroler ibarat indera dan otak, maka konektivitas adalah mulut dan telinga yang memudahkan alat-alat tersebut "ngobrol".</p>
                     </div>
-                    
-                    <h3>2. Jenis-Jenis Konektivitas</h3>
-                    
-                    <h4>a. WiFi</h4>
-                    <p>Konektivitas paling umum pada ESP32 dan ESP8266.</p>
-                    <p><strong>Kelebihan:</strong> Cepat, mudah digunakan, cocok untuk dashboard lokal</p>
-                    <p><strong>Kekurangan:</strong> Jarak terbatas, butuh router/hotspot</p>
-                    
-                    <h4>b. Bluetooth / BLE</h4>
-                    <p>Dipakai untuk komunikasi jarak dekat.</p>
-                    <p><strong>Kelebihan:</strong> Tidak perlu WiFi, hemat daya, cepat untuk jarak <10m</p>
-                    <p><strong>Kekurangan:</strong> Tidak cocok untuk IoT online, tidak bisa akses dari jauh</p>
-                    
-                    <h4>c. LoRa / LoRaWAN</h4>
-                    <p>Teknologi jarak jauh berdaya rendah (bisa >5 km).</p>
-                    <p><strong>Kelebihan:</strong> Jangkauan sangat jauh, hemat daya, cocok daerah minim internet</p>
-                    <p><strong>Kekurangan:</strong> Kecepatan rendah, butuh gateway untuk LoRaWAN</p>
-                    
-                    <h4>d. NB-IoT / LTE-M</h4>
-                    <p>Menggunakan jaringan seluler (operator).</p>
-                    <p><strong>Kelebihan:</strong> Tidak butuh WiFi, jangkauan luas, stabil untuk monitoring jarak jauh</p>
-                    <p><strong>Kekurangan:</strong> Butuh kartu SIM, ada biaya bulanan</p>
                 `,
                 quiz: [
                     {
-                        question: "Apa kelebihan utama WiFi dalam IoT?",
-                        options: ["Mudah digunakan dan cepat", "Jangkauan sangat jauh", "Tidak butuh router", "Gratis selamanya"],
-                        correct: 0,
-                        explanation: "WiFi mudah digunakan, cepat, dan cocok untuk aplikasi IoT lokal."
+                        question: "Apa yang dimaksud dengan konektivitas dalam IoT?",
+                        options: ["Kecepatan prosesor", "Teknologi komunikasi untuk menghubungkan perangkat IoT", "Ukuran memori perangkat", "Jenis sensor yang digunakan"],
+                        correct: 1,
+                        explanation: "Konektivitas adalah teknologi komunikasi yang menghubungkan perangkat IoT untuk bertukar data."
                     },
                     {
-                        question: "Konektivitas apa yang cocok untuk monitoring sawah jarak jauh?",
-                        options: ["LoRa", "WiFi", "Bluetooth", "Infrared"],
-                        correct: 0,
-                        explanation: "LoRa cocok untuk area luas seperti sawah karena jangkauannya mencapai beberapa kilometer."
+                        question: "Teknologi konektivitas mana yang paling cocok untuk sistem IoT di dalam ruangan masjid?",
+                        options: ["LoRa", "Satelit", "WiFi", "Radio AM/FM"],
+                        correct: 2,
+                        explanation: "WiFi paling cocok untuk indoor karena bandwidth tinggi dan mudah diimplementasikan."
                     },
                     {
-                        question: "Apa kelebihan Bluetooth BLE?",
-                        options: ["Hemat daya", "Jangkauan 10km", "Kecepatan tinggi", "Gratis data"],
+                        question: "Apa kepanjangan dari MQTT?",
+                        options: ["Message Queuing Telemetry Transport", "Multiple Quality Time Transfer", "Modern Quick Transfer Technology", "Managed Queue Transmission Tool"],
                         correct: 0,
-                        explanation: "Bluetooth Low Energy (BLE) dirancang untuk hemat daya."
+                        explanation: "MQTT adalah singkatan dari Message Queuing Telemetry Transport, protokol ringan untuk IoT."
                     },
                     {
-                        question: "Apa kekurangan NB-IoT?",
-                        options: ["Butuh kartu SIM dan ada biaya", "Jangkauan pendek", "Kecepatan terlalu tinggi", "Tidak aman"],
-                        correct: 0,
-                        explanation: "NB-IoT menggunakan jaringan seluler sehingga membutuhkan kartu SIM dan ada biaya operator."
+                        question: "Teknologi konektivitas mana yang paling hemat daya untuk sensor dengan baterai?",
+                        options: ["WiFi 2.4GHz", "Bluetooth Low Energy (BLE)", "4G LTE", "Ethernet"],
+                        correct: 1,
+                        explanation: "Bluetooth Low Energy (BLE) dirancang khusus untuk hemat daya pada perangkat baterai."
                     },
                     {
-                        question: "Konektivitas apa yang tersedia di ESP32?",
-                        options: ["WiFi dan Bluetooth", "LoRa saja", "NB-IoT saja", "Hanya WiFi"],
-                        correct: 0,
-                        explanation: "ESP32 memiliki WiFi dan Bluetooth built-in."
+                        question: "Mengapa keamanan konektivitas IoT penting untuk masjid?",
+                        options: ["Agar terlihat profesional", "Untuk melindungi data donasi dan privasi jamaah", "Supaya perangkat lebih cepat", "Agar harga lebih murah"],
+                        correct: 1,
+                        explanation: "Keamanan penting untuk melindungi data sensitif seperti donasi dan informasi jamaah."
                     }
                 ]
             },
             {
-                id: 7,
-                title: "Cloud & Penyimpanan Data IoT",
+                id: 4,
+                title: "Mikrokontroler dalam IoT",
+                icon: "fas fa-microchip",
+                description: "Mengenal 'otak kecil' yang menggerakkan perangkat elektronik.",
+                content: `
+                    <h3>Materi 4: Mikrokontroler dalam IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Mikrokontroler adalah "otak" dari sistem IoT yang bertugas memproses data dari sensor dan mengendalikan aktuator. Perangkat kecil ini menjalankan program yang kita buat untuk mengotomasi berbagai fungsi di masjid. Dengan memahami mikrokontroler, remaja masjid dapat membuat berbagai proyek IoT mulai dari yang sederhana seperti pengatur lampu otomatis hingga yang kompleks seperti sistem manajemen masjid terintegrasi.</p>
+                    
+                    <h4>5 Poin Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi dan Fungsi Mikrokontroler</strong> Mikrokontroler adalah komputer kecil dalam satu chip yang berisi prosesor, memori, dan input/output. Fungsinya: membaca data dari sensor, memproses data sesuai program, mengambil keputusan, mengirim perintah ke aktuator, dan berkomunikasi dengan perangkat lain. Contoh: Arduino membaca sensor suhu dan memutuskan kapan harus menyalakan kipas.</li>
+                        <li><strong>Jenis-jenis Mikrokontroler untuk IoT</strong> Mikrokontroler populer: (1) Arduino (Uno, Nano, Mega) - mudah untuk pemula, banyak tutorial, (2) ESP8266 - murah, sudah ada WiFi built-in, (3) ESP32 - lebih powerful, WiFi + Bluetooth, (4) Raspberry Pi - lebih seperti komputer mini, cocok untuk proyek kompleks, (5) NodeMCU - ESP8266 dengan USB built-in, praktis.</li>
+                        <li><strong>Komponen Mikrokontroler</strong> Bagian penting mikrokontroler: (1) CPU/Prosesor - otak pemroses, (2) Memori (Flash, RAM, EEPROM) - penyimpanan program dan data, (3) GPIO - pin input/output untuk sensor dan aktuator, (4) ADC - mengubah sinyal analog ke digital, (5) Interface komunikasi (UART, SPI, I2C) - untuk komunikasi dengan perangkat lain.</li>
+                        <li><strong>Pemrograman Mikrokontroler</strong> Mikrokontroler diprogram dengan bahasa pemrograman: (1) Arduino menggunakan bahasa C/C++ dengan IDE Arduino, (2) ESP32/ESP8266 bisa pakai Arduino IDE atau MicroPython, (3) Raspberry Pi menggunakan Python. Program berisi: setup awal (pinMode, koneksi WiFi) dan loop utama (baca sensor, proses, kirim data). Ada banyak library untuk memudahkan pemrograman.</li>
+                        <li><strong>Memilih Mikrokontroler yang Tepat</strong> Pertimbangan pemilihan: (1) Kebutuhan konektivitas (perlu WiFi? pilih ESP), (2) Jumlah pin I/O (banyak sensor? pilih Mega/ESP32), (3) Konsumsi daya (baterai? pilih yang low power), (4) Harga dan ketersediaan (Arduino clone murah), (5) Tingkat kesulitan (pemula: Arduino, advanced: ESP32). Untuk proyek masjid pemula, NodeMCU ESP8266 ideal.</li>
+                    </ol>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Bahasa Sehari-Hari:</h4>
+                        <p>Mikrokontroler adalah "otak kecil" yang bekerja secara otomatis sesuai program. Ia bisa membaca sensor, memproses logika, dan menggerakkan alat.</p>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "Apa fungsi utama mikrokontroler dalam sistem IoT?",
+                        options: ["Menyimpan data dalam jumlah besar", "Memproses data sensor dan mengendalikan aktuator", "Menyediakan koneksi internet", "Menampilkan grafik ke layar"],
+                        correct: 1,
+                        explanation: "Mikrokontroler adalah otak sistem IoT yang memproses data dan mengendalikan perangkat lain."
+                    },
+                    {
+                        question: "Mikrokontroler mana yang paling cocok untuk pemula yang ingin belajar IoT?",
+                        options: ["Mainframe computer", "Arduino Uno", "Supercomputer", "Server rack"],
+                        correct: 1,
+                        explanation: "Arduino Uno paling cocok untuk pemula karena mudah dipelajari dan banyak tutorial."
+                    },
+                    {
+                        question: "Apa keunggulan ESP8266 dibanding Arduino Uno?",
+                        options: ["Lebih mahal", "Lebih besar ukurannya", "Sudah memiliki WiFi built-in", "Tidak bisa diprogram"],
+                        correct: 2,
+                        explanation: "ESP8266 sudah memiliki WiFi built-in, sementara Arduino Uno memerlukan modul tambahan."
+                    },
+                    {
+                        question: "Apa kepanjangan dari GPIO pada mikrokontroler?",
+                        options: ["General Purpose Input Output", "Global Power Internal Operation", "Generated Protocol Internet Option", "Graphic Processing Input Object"],
+                        correct: 0,
+                        explanation: "GPIO adalah General Purpose Input Output, pin serbaguna untuk input dan output."
+                    },
+                    {
+                        question: "Bahasa pemrograman apa yang digunakan Arduino?",
+                        options: ["HTML", "Java", "C/C++", "PHP"],
+                        correct: 2,
+                        explanation: "Arduino menggunakan bahasa C/C++ dengan IDE Arduino."
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Aktuator dalam IoT",
+                icon: "fas fa-cogs",
+                description: "Mengenal 'tangan & kaki' yang menjalankan perintah dalam sistem IoT.",
+                content: `
+                    <h3>Materi 5: Aktuator dalam IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Aktuator adalah komponen yang mengubah sinyal listrik menjadi aksi fisik, merupakan "tangan dan kaki" dari sistem IoT. Jika sensor adalah input, maka aktuator adalah output yang menghasilkan perubahan nyata di lingkungan. Dalam konteks masjid, aktuator memungkinkan otomasi seperti membuka pintu otomatis, menyalakan lampu, mengatur suhu AC, atau menggerakkan kamera CCTV untuk memberikan pelayanan yang lebih baik kepada jamaah.</p>
+                    
+                    <h4>Hal Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi dan Fungsi Aktuator</strong> Aktuator adalah perangkat yang mengubah energi listrik menjadi gerakan fisik atau perubahan kondisi. Fungsinya: menerima perintah dari mikrokontroler, melakukan aksi fisik (gerakan, cahaya, suara, panas), mengubah kondisi lingkungan sesuai kebutuhan, memberikan feedback kepada sistem, dan mewujudkan otomasi. Contoh: relay menyalakan lampu masjid saat sensor gerak mendeteksi jamaah.</li>
+                        <li><strong>Jenis-jenis Aktuator</strong> Berbagai tipe aktuator: (1) Relay - saklar elektronik untuk perangkat AC (lampu, kipas, pompa), (2) Motor servo - gerakan rotasi presisi (0-180°) untuk pintu, kamera, (3) Motor DC - gerakan rotasi kontinyu (kipas, pompa), (4) Motor stepper - gerakan presisi tinggi (printer, robot), (5) Solenoid - gerakan linear (kunci pintu, valve), (6) LED - output cahaya, (7) Speaker/Buzzer - output suara.</li>
+                        <li><strong>Cara Kerja Aktuator</strong> Prinsip kerja aktuator: (1) Mikrokontroler mengirim sinyal digital/PWM, (2) Driver/relay memperkuat sinyal jika perlu, (3) Aktuator menerima daya dan sinyal kontrol, (4) Aktuator melakukan aksi fisik sesuai perintah, (5) Beberapa aktuator punya feedback sensor untuk memastikan aksi selesai. Contoh: servo menerima sinyal PWM → motor berputar ke sudut tertentu → berhenti saat mencapai posisi.</li>
+                        <li><strong>Integrasi Aktuator dengan Sistem IoT</strong> Integrasi melibatkan: (1) Koneksi hardware (pin GPIO, driver relay/motor), (2) Pemrograman kontrol (library servo, PWM control), (3) Logika keputusan (if sensor > threshold, nyalakan aktuator), (4) Timing dan sequencing (kapan dan berapa lama aktuator aktif), (5) Safety mechanism (timeout, limit switch). Untuk masjid: jika sensor deteksi jamaah AND cahaya kurang, maka nyalakan lampu.</li>
+                        <li><strong>Tips Menggunakan Aktuator dengan Aman</strong> Pertimbangan keamanan: (1) Gunakan relay untuk perangkat listrik AC (220V), jangan langsung dari mikrokontroler, (2) Perhatikan rating arus dan tegangan, (3) Pasang diode flyback untuk motor (cegah back EMF), (4) Gunakan power supply terpisah untuk aktuator berdaya besar, (5) Implementasi timeout dan emergency stop, (6) Isolasi jalur daya tinggi dari mikrokontroler. Safety first untuk instalasi di masjid!</li>
+                    </ol>
+                    
+                    <div class="analogy-box">
+                        <h4>💡 Analogi:</h4>
+                        <p>Jika sensor adalah indera, dan mikrokontroler adalah otaknya, maka aktuator adalah tangan/kaki yang menjalankan perintah.</p>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "Apa fungsi utama aktuator dalam sistem IoT?",
+                        options: ["Mendeteksi perubahan lingkungan", "Mengubah sinyal listrik menjadi aksi fisik", "Memproses data", "Menyimpan informasi"],
+                        correct: 1,
+                        explanation: "Aktuator mengubah sinyal listrik menjadi aksi fisik seperti gerakan, cahaya, atau suara."
+                    },
+                    {
+                        question: "Aktuator mana yang cocok untuk menyalakan lampu masjid 220V?",
+                        options: ["LED kecil 5V", "Sensor PIR", "Relay", "Resistor"],
+                        correct: 2,
+                        explanation: "Relay cocok untuk menyalakan perangkat AC 220V karena memberikan isolasi listrik yang aman."
+                    },
+                    {
+                        question: "Motor servo biasanya digunakan untuk gerakan yang membutuhkan?",
+                        options: ["Kecepatan tinggi tanpa kontrol", "Rotasi presisi dengan sudut tertentu", "Gerakan acak", "Hanya diam di tempat"],
+                        correct: 1,
+                        explanation: "Motor servo digunakan untuk gerakan presisi dengan kontrol sudut tertentu (0-180°)."
+                    },
+                    {
+                        question: "Mengapa kita perlu relay untuk menghubungkan mikrokontroler dengan perangkat AC 220V?",
+                        options: ["Supaya lebih murah", "Untuk keamanan, karena mikrokontroler hanya 5V/3.3V", "Agar lebih cepat", "Relay tidak diperlukan"],
+                        correct: 1,
+                        explanation: "Relay diperlukan untuk keamanan karena mikrokontroler hanya bekerja pada tegangan rendah (5V/3.3V)."
+                    },
+                    {
+                        question: "Apa yang dimaksud dengan PWM dalam kontrol aktuator?",
+                        options: ["Power Wiring Method", "Pulse Width Modulation", "Permanent Wave Motion", "Protected Wire Management"],
+                        correct: 1,
+                        explanation: "PWM (Pulse Width Modulation) adalah teknik untuk mengontrol daya dengan memodulasi lebar pulsa."
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Platform Cloud IoT",
                 icon: "fas fa-cloud",
                 description: "Tempat data terkumpul dan diolah dalam sistem IoT.",
                 content: `
-                    <h3>1. Apa Itu Cloud dalam IoT?</h3>
-                    <p>Cloud adalah ruang penyimpanan online tempat data dari IoT dikirim.</p>
+                    <h3>Materi 6: Platform Cloud IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Platform Cloud IoT adalah layanan berbasis internet yang menyimpan, memproses, dan menampilkan data dari perangkat IoT. Cloud memungkinkan kita mengakses dan mengontrol sistem IoT masjid dari mana saja melalui smartphone atau komputer. Dengan cloud, data sensor dapat disimpan dalam jangka panjang, dianalisis untuk mendapatkan insight, dan ditampilkan dalam dashboard yang informatif untuk membantu pengurus masjid mengambil keputusan yang lebih baik.</p>
+                    
+                    <h4>Hal Penting:</h4>
+                    <ol>
+                        <li><strong>Definisi Platform Cloud IoT</strong> Platform Cloud IoT adalah layanan online yang menyediakan infrastruktur untuk menyimpan data IoT, memproses data real-time, visualisasi dashboard, kontrol jarak jauh perangkat, dan analytics. Platform populer: ThingSpeak, Blynk, Arduino IoT Cloud, Google Cloud IoT, AWS IoT. Untuk masjid: monitoring konsumsi listrik, tracking donasi digital, statistik kehadiran jamaah---semuanya tersimpan aman di cloud.</li>
+                        <li><strong>Fitur-fitur Platform Cloud IoT</strong> Fitur utama: (1) Data storage - menyimpan ribuan data sensor, (2) Real-time monitoring - lihat status perangkat langsung, (3) Dashboard & visualization - grafik, gauge, chart otomatis, (4) Remote control - nyalakan/matikan perangkat dari HP, (5) Alert & notification - notifikasi jika ada anomali, (6) API - integrasi dengan aplikasi lain, (7) Data analytics - analisis trend dan pola.</li>
+                        <li><strong>Cara Kerja Komunikasi dengan Cloud</strong> Alur kerja: (1) Sensor di masjid baca data, (2) Mikrokontroler kirim data via WiFi/seluler ke cloud menggunakan protokol MQTT/HTTP, (3) Cloud server terima dan simpan data di database, (4) Cloud proses data (rata-rata, trend, anomaly detection), (5) User akses dashboard via web/app, (6) User kirim perintah ke cloud, (7) Cloud forward perintah ke perangkat IoT.</li>
+                        <li><strong>Memilih Platform Cloud yang Tepat</strong> Pertimbangan: (1) Gratis vs berbayar (ThingSpeak free: 3 juta messages/tahun, Blynk free: 1 device), (2) Kemudahan penggunaan (Blynk paling user-friendly untuk pemula), (3) Fitur yang dibutuhkan (analytics kompleks: AWS/Google), (4) Jumlah perangkat dan data (scale), (5) Keamanan dan privasi data. Untuk pemula masjid: ThingSpeak atau Blynk cocok karena gratis dan mudah.</li>
+                        <li><strong>Keamanan dan Privasi Data Cloud</strong> Aspek keamanan: (1) Enkripsi data (SSL/TLS saat transmisi), (2) Autentikasi API key/token untuk cegah akses ilegal, (3) Backup data berkala, (4) Akses kontrol (role-based: siapa boleh lihat/edit), (5) Compliance (GDPR, privasi data jamaah), (6) Pilih server location (lebih baik di Indonesia). Jaga keamanan data donasi dan informasi jamaah sebagai amanah.</li>
+                    </ol>
                     
                     <div class="analogy-box">
                         <h4>💡 Analogi sederhana:</h4>
                         <p>Cloud = laci penyimpanan di internet. Sensor → kirim data → disimpan di cloud → HP membaca data dari sana.</p>
                     </div>
-                    
-                    <h3>2. Fungsi Cloud dalam IoT</h3>
-                    <ul>
-                        <li>Menyimpan data (suhu, tanah, jarak, dll.)</li>
-                        <li>Menampilkan data ke HP atau web</li>
-                        <li>Memberikan perintah balik ke perangkat</li>
-                        <li>Mengatur otomatisasi dari jarak jauh</li>
-                        <li>Backup data jangka panjang</li>
-                    </ul>
-                    
-                    <h3>3. Jenis Cloud untuk Pemula</h3>
-                    
-                    <h4>a. Blynk Cloud</h4>
-                    <p>Paling mudah untuk pemula dan remaja.</p>
-                    <p><strong>Kelebihan:</strong> Gratis untuk pemula, dashboard instan di HP, tidak perlu coding server</p>
-                    
-                    <h4>b. Firebase (Google)</h4>
-                    <p>Cepat dan stabil, mudah integrasi dengan Android.</p>
-                    <p><strong>Kelebihan:</strong> Cepat, stabil, gratis untuk penggunaan kecil</p>
-                    
-                    <h4>c. MQTT Cloud</h4>
-                    <p>Protokol ringan untuk IoT (HiveMQ, Mosquitto, EMQX).</p>
-                    <p><strong>Kelebihan:</strong> Sangat cepat, cocok untuk banyak perangkat, stabil</p>
-                    
-                    <h4>d. AWS IoT, Azure IoT, Google Cloud IoT</h4>
-                    <p>Lebih profesional, cocok skala besar.</p>
-                    <p><strong>Kelebihan:</strong> Otomatis, aman, besar</p>
-                    <p><strong>Kekurangan:</strong> Rumit untuk pemula, berbayar</p>
                 `,
                 quiz: [
                     {
-                        question: "Apa fungsi utama cloud dalam IoT?",
-                        options: ["Menyimpan dan memproses data", "Memberikan daya pada sensor", "Menggantikan mikrokontroler", "Memperbesar sinyal WiFi"],
-                        correct: 0,
-                        explanation: "Cloud berfungsi sebagai tempat penyimpanan dan pengolahan data dari perangkat IoT."
+                        question: "Apa fungsi utama Platform Cloud IoT?",
+                        options: ["Membuat hardware IoT", "Menyimpan, memproses, dan menampilkan data IoT", "Mengganti mikrokontroler", "Memproduksi sensor"],
+                        correct: 1,
+                        explanation: "Platform Cloud IoT berfungsi menyimpan, memproses, dan menampilkan data dari perangkat IoT."
                     },
                     {
-                        question: "Cloud mana yang paling mudah untuk pemula?",
-                        options: ["Blynk Cloud", "AWS IoT", "Google Cloud IoT", "Azure IoT"],
-                        correct: 0,
-                        explanation: "Blynk Cloud paling mudah karena tidak perlu coding server dan dashboard instan di HP."
+                        question: "Platform Cloud IoT mana yang paling cocok untuk pemula?",
+                        options: ["Custom server sendiri", "ThingSpeak atau Blynk", "Mainframe server", "Satelit communication"],
+                        correct: 1,
+                        explanation: "ThingSpeak dan Blynk cocok untuk pemula karena gratis dan mudah digunakan."
                     },
                     {
-                        question: "Apa kelebihan Firebase?",
-                        options: ["Cepat dan mudah integrasi dengan Android", "Gratis tanpa batas", "Tidak perlu internet", "Otomatis memiliki display"],
-                        correct: 0,
-                        explanation: "Firebase cepat dan mudah diintegrasikan dengan aplikasi Android."
+                        question: "Protokol apa yang umum digunakan untuk mengirim data ke cloud IoT?",
+                        options: ["FTP", "SMTP", "MQTT", "POP3"],
+                        correct: 2,
+                        explanation: "MQTT adalah protokol ringan yang umum digunakan untuk mengirim data ke cloud IoT."
                     },
                     {
-                        question: "Apa itu MQTT?",
-                        options: ["Protokol ringan untuk IoT", "Jenis sensor suhu", "Merek mikrokontroler", "Software programming"],
-                        correct: 0,
-                        explanation: "MQTT adalah protokol komunikasi ringan yang populer untuk perangkat IoT."
+                        question: "Apa keuntungan menggunakan cloud untuk sistem IoT masjid?",
+                        options: ["Data tidak bisa diakses dari jauh", "Lebih mahal dan rumit", "Bisa monitoring dan kontrol dari mana saja", "Harus selalu di lokasi"],
+                        correct: 2,
+                        explanation: "Cloud memungkinkan monitoring dan kontrol sistem IoT dari mana saja melalui internet."
                     },
                     {
-                        question: "Mengapa cloud penting untuk sistem IoT?",
-                        options: ["Akses data dari mana saja", "Menggantikan semua sensor", "Membuat alat lebih murah", "Mempercepat pemrograman"],
-                        correct: 0,
-                        explanation: "Cloud memungkinkan akses data dari mana saja dan kapan saja."
+                        question: "Apa yang dimaksud dengan API key dalam platform cloud?",
+                        options: ["Kunci fisik untuk membuka server", "Token autentikasi untuk keamanan akses", "Nama pengguna", "Alamat email"],
+                        correct: 1,
+                        explanation: "API key adalah token autentikasi untuk mengamankan akses ke platform cloud."
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "Dashboard & UI/UX dalam IoT",
+                icon: "fas fa-tachometer-alt",
+                description: "Tempat data ditampilkan agar mudah dipantau.",
+                content: `
+                    <h3>Materi 7: Dashboard & UI/UX dalam IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Dashboard dan User Interface (UI) adalah "wajah" dari sistem IoT yang berinteraksi langsung dengan pengguna. Secanggih apapun sistem IoT yang dibuat, jika tampilan dashboard membingungkan atau sulit digunakan, maka sistem tersebut tidak akan efektif. Untuk sistem IoT masjid, dashboard yang baik akan memudahkan pengurus dalam monitoring dan pengambilan keputusan, serta memudahkan jamaah dalam mengakses informasi. User Experience (UX) yang baik akan membuat teknologi terasa natural dan tidak merepotkan.</p>
+                    
+                    <h4>5 Poin Penting:</h4>
+                    <ol>
+                        <li><strong>Pengertian Dashboard, UI, dan UX dalam IoT</strong> Dashboard adalah tampilan visual yang mengkonsolidasikan data dari berbagai sensor IoT dalam satu layar yang mudah dipahami. UI (User Interface) adalah elemen visual yang dilihat dan diinteraksi pengguna: tombol, grafik, warna, layout. UX (User Experience) adalah keseluruhan pengalaman pengguna saat berinteraksi dengan sistem: seberapa mudah, intuitif, dan menyenangkan. Contoh: dashboard masjid menampilkan suhu ruangan, jumlah jamaah, status AC, donasi hari ini---semua dalam satu layar yang clear. UI yang baik: tombol besar dan jelas. UX yang baik: pengurus bisa akses info penting dalam 3 detik tanpa bingung.</li>
+                        <li><strong>Jenis-jenis Display untuk IoT</strong> Display hardware yang umum: (1) <strong>LCD Character (16x2, 20x4)</strong> - murah, hanya teks, cocok untuk info sederhana seperti suhu/waktu sholat. (2) <strong>OLED Display (0.96", 1.3")</strong> - kontras tinggi, hemat daya, bagus untuk outdoor, tampilan lebih modern. (3) <strong>TFT LCD Touch Screen (2.4"-7")</strong> - berwarna, bisa touch, cocok untuk kontrol panel interaktif. (4) <strong>LED Matrix/7-Segment</strong> - untuk angka besar, bisa dilihat dari jauh, cocok untuk countdown sholat atau antrian (5) <strong>Web Dashboard</strong> - akses via browser dari HP/laptop, tidak perlu hardware display fisik, gratis tapi perlu internet. Pilih sesuai kebutuhan dan budget.</li>
+                        <li><strong>Prinsip Desain Dashboard yang Efektif</strong> Prinsip penting: (1) <strong>Hierarchy</strong> - info paling penting di posisi paling menonjol (ukuran besar, warna kontras), misalnya waktu sholat berikutnya lebih besar dari info lain (2) <strong>Simplicity</strong> - jangan terlalu banyak info dalam satu layar, maksimal 5-7 widget, gunakan whitespace, (3) <strong>Consistency</strong> - warna, font, icon style konsisten di semua halaman (4) <strong>Real-time feedback</strong> - indikator loading, konfirmasi aksi berhasil/gagal (5) <strong>Accessibility</strong> - font cukup besar untuk lansia (min 16px), warna kontras untuk low vision (6) <strong>Responsive</strong> - tampilan menyesuaikan dengan device (HP, tablet, desktop). Dashboard masjid harus bisa diakses pengurus yang mungkin kurang tech-savvy.</li>
+                        <li><strong>Elemen Visualisasi Data IoT</strong> Komponen dashboard: (1) <strong>Gauge/Meter</strong> - untuk nilai tunggal dengan range (suhu 20-35°C), mudah dibaca sekilas (2) <strong>Line Chart</strong> - untuk trend over time (konsumsi listrik per jam), lihat pola naik-turun (3) <strong>Bar Chart</strong> - untuk perbandingan (jumlah jamaah per waktu sholat) (4) <strong>Number Display</strong> - angka besar untuk KPI utama (total donasi hari ini) (5) <strong>Status Indicator</strong> - LED virtual hijau/merah (AC hidup/mati, air cukup/kurang) (6) <strong>Map</strong> - untuk lokasi (distribusi jamaah berdasarkan area) (7) <strong>Table</strong> - untuk data detail terstruktur. Gunakan visualisasi yang sesuai dengan jenis data. Hindari pie chart untuk data time-series. Warna coding: hijau=normal, kuning=warning, merah=critical.</li>
+                        <li><strong>Platform dan Tools untuk Membuat Dashboard IoT</strong> Tools populer: (1) <strong>Blynk</strong> - paling user-friendly, drag-drop widget, app mobile siap pakai, gratis untuk 1 device, cocok pemula, tampilan modern (2) <strong>ThingSpeak</strong> - dari MathWorks, gratis 3 juta messages/tahun, visualisasi otomatis, bisa custom HTML, cocok untuk data analytics (3) <strong>Node-RED Dashboard</strong> - open source, fleksibel, butuh Raspberry Pi/server sendiri, bisa custom penuh (4) <strong>Grafana</strong> - professional grade, visualisasi powerful, tapi lebih kompleks (5) <strong>Custom Web Dashboard</strong> - pakai HTML/CSS/JavaScript + API, kontrol penuh tapi butuh coding skill. Untuk masjid pemula: mulai dari Blynk atau ThingSpeak. Kalau sudah advanced: Node-RED atau custom web. Yang penting: dashboard harus stabil, tidak error, dan loading cepat.</li>
+                    </ol>
+                `,
+                quiz: [
+                    {
+                        question: "Apa perbedaan antara UI dan UX?",
+                        options: ["UI dan UX adalah hal yang sama", "UI adalah elemen visual, UX adalah keseluruhan pengalaman pengguna", "UI untuk hardware, UX untuk software", "Tidak ada perbedaan"],
+                        correct: 1,
+                        explanation: "UI adalah elemen visual yang dilihat pengguna, sedangkan UX adalah keseluruhan pengalaman saat menggunakan sistem."
+                    },
+                    {
+                        question: "Display jenis apa yang paling cocok untuk menampilkan countdown waktu sholat yang bisa dilihat dari jauh?",
+                        options: ["LCD Character 16x2", "OLED 0.96 inch", "LED Matrix atau 7-Segment besar", "Layar HP"],
+                        correct: 2,
+                        explanation: "LED Matrix atau 7-Segment besar cocok untuk tampilan jarak jauh karena ukurannya besar dan terang."
+                    },
+                    {
+                        question: "Berapa maksimal jumlah widget yang sebaiknya ditampilkan dalam satu layar dashboard?",
+                        options: ["1-2 widget", "5-7 widget", "20-30 widget", "Tidak ada batasan"],
+                        correct: 1,
+                        explanation: "5-7 widget adalah jumlah optimal agar dashboard tidak terlalu padat dan mudah dibaca."
+                    },
+                    {
+                        question: "Visualisasi apa yang paling tepat untuk menampilkan trend konsumsi listrik per jam?",
+                        options: ["Pie chart", "Line chart", "Tabel angka saja", "Text biasa"],
+                        correct: 1,
+                        explanation: "Line chart paling tepat untuk menampilkan trend data over time seperti konsumsi listrik per jam."
+                    },
+                    {
+                        question: "Platform dashboard IoT mana yang paling cocok untuk pemula?",
+                        options: ["Custom coding dari awal", "Blynk (drag-drop, user-friendly)", "Assembly language", "Tidak perlu dashboard"],
+                        correct: 1,
+                        explanation: "Blynk paling cocok untuk pemula karena menggunakan drag-drop widget tanpa perlu coding kompleks."
                     }
                 ]
             },
             {
                 id: 8,
-                title: "Dashboard & UI dalam IoT",
-                icon: "fas fa-tachometer-alt",
-                description: "Tempat data ditampilkan agar mudah dipantau.",
+                title: "Keamanan dan Etika IoT",
+                icon: "fas fa-shield-alt",
+                description: "Memahami pentingnya keamanan dan etika dalam pengembangan sistem IoT.",
                 content: `
-                    <h3>1. Apa Itu Dashboard IoT?</h3>
-                    <p>Dashboard adalah tampilan antarmuka yang berfungsi menampilkan data IoT dalam bentuk angka, grafik, tombol ON/OFF, indikator, dan status perangkat.</p>
+                    <h3>Materi 8: Keamanan dan Etika IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Keamanan dan etika dalam IoT sangat penting, terutama untuk sistem yang digunakan di masjid yang melayani banyak jamaah. Sistem IoT yang tidak aman dapat diretas, data pribadi jamaah dapat bocor, atau sistem dapat disalahgunakan. Sebagai muslim yang mengembangkan teknologi untuk masjid, kita punya tanggung jawab moral dan agama untuk menjaga amanah, melindungi privasi, dan memastikan teknologi digunakan untuk kebaikan.</p>
                     
-                    <div class="analogy-box">
-                        <h4>💡 Definisi:</h4>
-                        <p>Dashboard = "layar kontrol pusat" untuk sistem IoT.</p>
-                    </div>
-                    
-                    <h3>2. Jenis Dashboard IoT</h3>
-                    
-                    <h4>a. Dashboard Web Lokal (ESP32 Web Server)</h4>
-                    <p>Tanpa internet, cukup WiFi lokal (AP Mode).</p>
-                    <p><strong>Kelebihan:</strong> Tidak perlu cloud, bisa diakses langsung dari HP</p>
-                    <p><strong>Kekurangan:</strong> Tidak bisa diakses saat jauh dari alat</p>
-                    
-                    <h4>b. Dashboard Aplikasi (Blynk)</h4>
-                    <p>Paling mudah untuk pemula.</p>
-                    <p><strong>Kelebihan:</strong> Drag & drop widget, tombol ON/OFF, grafik, chart</p>
-                    
-                    <h4>c. Dashboard Kustom (HTML/JS, Android Native)</h4>
-                    <p>Membutuhkan skill lebih, tetapi paling fleksibel.</p>
-                    <p><strong>Kelebihan:</strong> Tampilan bisa dibuat sangat modern, bisa tema khusus</p>
-                    
-                    <h3>3. Prinsip UI/UX untuk Remaja</h3>
-                    <ul>
-                        <li>Teks besar dan mudah dibaca</li>
-                        <li>Ikon sederhana (air, cahaya, suhu)</li>
-                        <li>Warna cerah namun tidak ramai</li>
-                        <li>Tombol besar (mudah disentuh)</li>
-                        <li>Responsif (cocok HP/tablet/TV)</li>
-                    </ul>
+                    <h4>5 Poin Penting:</h4>
+                    <ol>
+                        <li><strong>Ancaman Keamanan dalam IoT</strong> Risiko yang perlu diwaspadai: (1) Hacking - perangkat diambil alih pihak tidak bertanggung jawab, (2) Data breach - bocornya data donasi atau informasi jamaah, (3) DDoS attack - sistem dibanjiri request hingga down, (4) Man-in-the-middle - data disadap saat transmisi, (5) Malware - virus menginfeksi perangkat, (6) Physical tampering - orang jahil rusak hardware. Untuk masjid: lindungi sistem donasi digital, CCTV, dan data jamaah.</li>
+                        <li><strong>Prinsip Keamanan IoT (CIA Triad)</strong> Tiga pilar keamanan: (1) Confidentiality (Kerahasiaan) - hanya yang berwenang bisa akses data, gunakan enkripsi dan password kuat, (2) Integrity (Integritas) - data tidak boleh diubah tanpa izin, gunakan checksums dan digital signatures, (3) Availability (Ketersediaan) - sistem harus selalu bisa diakses saat dibutuhkan, gunakan backup dan redundancy. Jaga ketiga aspek ini dalam sistem IoT masjid.</li>
+                        <li><strong>Best Practices Keamanan IoT</strong> Praktik terbaik: (1) Ganti password default (jangan pakai "admin/admin"), (2) Update firmware berkala untuk patch keamanan, (3) Gunakan enkripsi (WPA3 untuk WiFi, SSL/TLS untuk data), (4) Network segmentation (pisahkan jaringan IoT dari jaringan utama), (5) Disable fitur yang tidak digunakan, (6) Monitoring log aktivitas, (7) Backup data teratur, (8) Physical security (kunci ruang server, anti theft untuk device outdoor).</li>
+                        <li><strong>Etika Penggunaan IoT di Masjid</strong> Pertimbangan etika: (1) Privasi jamaah - CCTV tidak boleh di area sensitif (toilet, tempat wudhu), inform jamaah jika ada recording, (2) Transparansi - jelaskan data apa yang dikumpulkan dan untuk apa, (3) Consent - minta izin untuk data personal, (4) Minimalisasi data - hanya kumpulkan data yang benar-benar diperlukan, (5) Hak akses - batasi siapa yang bisa lihat data sensitif, (6) Jangan diskriminasi - sistem harus adil untuk semua jamaah. Amanah adalah prinsip utama!</li>
+                        <li><strong>Aspek Syariah dalam IoT Masjid</strong> Pertimbangan syariah: (1) Niat - teknologi untuk kemudahan ibadah dan kemaslahatan umat, bukan pamer, (2) Tidak berlebihan (israf) - pilih solusi yang proporsional dengan kebutuhan, (3) Menjaga aurat - posisi kamera harus proper, (4) Transparansi keuangan - sistem donasi digital harus jelas dan accountable, (5) Manfaat lebih besar dari mudarat - evaluasi dampak positif vs risiko, (6) Tidak menyibukkan dari dzikir - notifikasi jangan mengganggu ibadah. Berkonsultasilah dengan ustadz/pengurus masjid.</li>
+                    </ol>
                 `,
                 quiz: [
                     {
-                        question: "Apa fungsi dashboard dalam sistem IoT?",
-                        options: ["Menampilkan data dan kontrol perangkat", "Menyimpan program mikrokontroler", "Memberi daya pada sensor", "Memperkuat sinyal WiFi"],
-                        correct: 0,
-                        explanation: "Dashboard berfungsi sebagai antarmuka untuk menampilkan data dan mengontrol perangkat IoT."
+                        question: "Apa kepanjangan dari CIA Triad dalam keamanan IoT?",
+                        options: ["Computer Internet Algorithm", "Confidentiality, Integrity, Availability", "Cloud Integration Access", "Central Intelligence Agency"],
+                        correct: 1,
+                        explanation: "CIA Triad adalah Confidentiality (Kerahasiaan), Integrity (Integritas), dan Availability (Ketersediaan)."
                     },
                     {
-                        question: "Dashboard mana yang bisa digunakan tanpa internet?",
-                        options: ["Dashboard Web Lokal ESP32", "Blynk Cloud Dashboard", "Firebase Dashboard", "AWS IoT Dashboard"],
-                        correct: 0,
-                        explanation: "Dashboard web lokal ESP32 berjalan di jaringan WiFi lokal tanpa perlu internet."
+                        question: "Mengapa password default harus segera diganti?",
+                        options: ["Supaya terlihat profesional", "Karena password default mudah ditebak dan sering jadi target hacker", "Agar lebih cepat", "Tidak perlu diganti"],
+                        correct: 1,
+                        explanation: "Password default mudah ditebak hacker dan harus diganti untuk keamanan sistem."
                     },
                     {
-                        question: "Apa kelebihan dashboard Blynk?",
-                        options: ["Drag & drop widget", "Harus coding HTML", "Hanya untuk komputer", "Mahal"],
-                        correct: 0,
-                        explanation: "Blynk menyediakan widget yang bisa drag & drop tanpa coding kompleks."
+                        question: "Di mana sebaiknya CCTV TIDAK dipasang di masjid karena alasan etika?",
+                        options: ["Area parkir", "Pintu masuk", "Toilet dan tempat wudhu", "Ruang utama"],
+                        correct: 2,
+                        explanation: "CCTV tidak boleh dipasang di toilet dan tempat wudhu untuk menjaga privasi jamaah."
                     },
                     {
-                        question: "Prinsip UI apa yang penting untuk dashboard?",
-                        options: ["Teks besar dan mudah dibaca", "Warna gelap semua", "Banyak animasi", "Tidak ada tombol"],
+                        question: "Apa prinsip Islam yang paling relevan dengan keamanan data jamaah?",
+                        options: ["Amanah (menjaga kepercayaan)", "Riya (pamer)", "Takabur (sombong)", "Hasad (dengki)"],
                         correct: 0,
-                        explanation: "Teks yang besar dan mudah dibaca penting untuk kemudahan penggunaan."
+                        explanation: "Amanah (menjaga kepercayaan) adalah prinsip Islam yang paling relevan dengan keamanan data."
                     },
                     {
-                        question: "Apa kelebihan dashboard kustom?",
-                        options: ["Fleksibel dan bisa tema khusus", "Paling mudah dibuat", "Tidak perlu programming", "Otomatis dibuat oleh ESP32"],
+                        question: "Apa yang dimaksud dengan network segmentation?",
+                        options: ["Menghapus semua jaringan", "Memisahkan jaringan IoT dari jaringan utama untuk keamanan", "Menggabungkan semua perangkat dalam satu jaringan", "Mematikan WiFi"],
+                        correct: 1,
+                        explanation: "Network segmentation adalah memisahkan jaringan IoT dari jaringan utama untuk meningkatkan keamanan."
+                    }
+                ]
+            },
+            {
+                id: 9,
+                title: "Troubleshooting dan Maintenance IoT",
+                icon: "fas fa-tools",
+                description: "Mengatasi masalah dan merawat sistem IoT agar tetap optimal.",
+                content: `
+                    <h3>Materi 9: Troubleshooting dan Maintenance IoT</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Sistem IoT, seperti perangkat elektronik lainnya, memerlukan perawatan dan kadang mengalami masalah. Kemampuan troubleshooting (mencari dan memperbaiki masalah) dan maintenance (perawatan berkala) sangat penting agar sistem IoT di masjid tetap berjalan optimal. Dengan pemahaman yang baik tentang troubleshooting, remaja masjid dapat menjadi "teknisi IoT" yang mandiri dan tidak bergantung sepenuhnya pada pihak luar saat ada masalah.</p>
+                    
+                    <h4>Hal Penting:</h4>
+                    <ol>
+                        <li><strong>Masalah Umum dan Solusinya</strong> Masalah frequent: (1) Perangkat tidak connect WiFi - cek password, jarak router, signal strength; restart device (2) Sensor membaca data aneh - kalibrasi ulang, cek wiring, ganti sensor rusak (3) Data tidak masuk ke cloud - cek koneksi internet, API key, kuota data (4) Aktuator tidak respon - cek power supply, koneksi relay, program logic (5) Device restart sendiri - cek power supply insufficient, kode infinite loop, overheating. Buat log error untuk tracking pattern masalah.</li>
+                        <li><strong>Metode Systematic Troubleshooting</strong> Pendekatan terstruktur: (1) Identifikasi gejala - apa yang tidak normal? sejak kapan? (2) Isolasi masalah - hardware atau software? sensor atau mikrokontroler?, (3) Divide and conquer - test komponen satu-per-satu (4) Check the basics first - power, koneksi, kabel (5) Gunakan tools - multimeter untuk cek tegangan, serial monitor untuk debug code (6) Dokumentasi - catat masalah dan solusi untuk referensi masa depan. Metode sistematis menghemat waktu dibanding trial-error.</li>
+                        <li><strong>Tools dan Teknik Debugging</strong> Tools penting: (1) Serial Monitor - lihat output program real-time, print variable untuk debug, (2) Multimeter - ukur tegangan, arus, kontinuitas kabel, (3) LED indikator - tunjukkan status program (blink pattern untuk error codes), (4) Breadboard - test cepat tanpa solder, (5) Logic analyzer - untuk masalah komunikasi kompleks (I2C, SPI). Teknik: gunakan banyak Serial.println() untuk track flow program, comment code bertahap untuk isolasi bug, test dengan minimal setup dulu.</li>
+                        <li><strong>Jadwal Maintenance Berkala</strong> Maintenance preventif: (1) Harian - cek dashboard untuk anomali data (2) Mingguan - bersihkan debu dari sensor (khususnya outdoor), cek LED indikator (3) Bulanan - test backup power, update firmware jika ada, cek koneksi fisik (kabel longgar?), review log error (4) 3 Bulanan - kalibrasi sensor, cek kondisi enclosure (korosi?), backup data cloud (5) Tahunan - ganti komponen consumable (baterai, relay sering switching), full system audit. Preventive maintenance lebih murah dari perbaikan darurat!</li>
+                        <li><strong>Dokumentasi dan Knowledge Management</strong> Pentingnya dokumentasi: (1) Schematic diagram - gambar wiring lengkap dengan label (2) Code comments - jelaskan logika program (3) Setup guide - langkah instalasi untuk regenerasi (4) Troubleshooting guide - list masalah dan solusinya (5) Contact list - vendor, komunitas untuk help (6) Change log - catat setiap modifikasi sistem. Simpan di Google Drive untuk akses mudah oleh tim. Dokumentasi baik = transfer knowledge lancar ke pengurus baru.</li>
+                    </ol>
+                `,
+                quiz: [
+                    {
+                        question: "Apa langkah pertama dalam systematic troubleshooting?",
+                        options: ["Langsung ganti semua komponen", "Identifikasi gejala dan kapan masalah mulai terjadi", "Beli perangkat baru", "Abaikan masalah"],
+                        correct: 1,
+                        explanation: "Langkah pertama adalah mengidentifikasi gejala dan kapan masalah mulai terjadi."
+                    },
+                    {
+                        question: "Tools apa yang digunakan untuk melihat output program secara real-time?",
+                        options: ["Palu", "Serial Monitor", "Gunting", "Kamera"],
+                        correct: 1,
+                        explanation: "Serial Monitor digunakan untuk melihat output program mikrokontroler secara real-time."
+                    },
+                    {
+                        question: "Seberapa sering maintenance harian sebaiknya dilakukan?",
+                        options: ["Setiap hari - cek dashboard untuk anomali", "Setiap tahun", "Tidak perlu maintenance", "Setiap 10 tahun"],
                         correct: 0,
-                        explanation: "Dashboard kustom fleksibel dan bisa disesuaikan dengan kebutuhan khusus."
+                        explanation: "Maintenance harian meliputi pengecekan dashboard untuk mendeteksi anomali data."
+                    },
+                    {
+                        question: "Apa yang harus dilakukan jika perangkat IoT tidak bisa connect ke WiFi?",
+                        options: ["Buang perangkatnya", "Cek password, jarak router, signal strength, dan restart device", "Tidak perlu diapa-apakan", "Tunggu sampai connect sendiri"],
+                        correct: 1,
+                        explanation: "Cek password, jarak router, signal strength, dan restart device adalah langkah troubleshooting pertama."
+                    },
+                    {
+                        question: "Mengapa dokumentasi sistem IoT penting?",
+                        options: ["Hanya untuk formalitas", "Untuk transfer knowledge ke pengurus baru dan troubleshooting lebih mudah", "Membuang-buang waktu", "Tidak penting sama sekali"],
+                        correct: 1,
+                        explanation: "Dokumentasi penting untuk transfer knowledge dan memudahkan troubleshooting di masa depan."
+                    }
+                ]
+            },
+            {
+                id: 10,
+                title: "Masa Depan IoT dan Pengembangan Karir",
+                icon: "fas fa-rocket",
+                description: "Peluang dan pengembangan karir di bidang IoT masa depan.",
+                content: `
+                    <h3>Materi 10: Masa Depan IoT dan Pengembangan Karir</h3>
+                    <p><strong>Pengantar</strong></p>
+                    <p>Internet of Things adalah teknologi yang terus berkembang pesat dan akan semakin penting di masa depan. Bagi remaja masjid yang tertarik dengan IoT, ada banyak peluang untuk mengembangkan skill, berkarir, atau bahkan membuka usaha di bidang ini. Lebih dari itu, dengan menguasai IoT, kalian bisa berkontribusi untuk modernisasi masjid-masjid di Indonesia, membuatnya lebih efisien dan ramah lingkungan, sekaligus tetap menjaga nilai-nilai spiritual.</p>
+                    
+                    <h4>Hal Penting:</h4>
+                    <ol>
+                        <li><strong>Tren Teknologi IoT Masa Depan</strong> Perkembangan yang akan datang: (1) AI + IoT (AIoT) - device yang bisa belajar dan prediksi otomatis, contoh: sistem AC yang belajar pola jamaah dan auto-adjust (2) 5G - koneksi lebih cepat untuk video real-time (3) Edge Computing - processing di device langsung, kurangi latency (4) Green IoT - fokus efisiensi energi dan sustainability (5) Digital Twin - simulasi virtual dari sistem fisik masjid (6) Blockchain - untuk transparansi donasi digital. Masjid pintar masa depan akan fully automated namun tetap humanistic.</li>
+                        <li><strong>IoT untuk Smart Mosque Ecosystem</strong> Visi masjid pintar: (1) Smart energy - panel solar + IoT monitoring konsumsi real-time (2) Smart parking - sensor parkir available + guidance system (3) Crowd management - prediksi kepadatan jamaah berbasis AI (4) Smart donation - QR code, e-wallet integration, transparent reporting (5) Virtual tour - jamaah bisa ikut kajian online dengan kualitas tinggi (6) Integrated app - satu app untuk semua layanan masjid (jadwal, donasi, booking, kajian). Indonesia punya 800,000+ masjid - peluang besar untuk inovasi!</li>
+                        <li><strong>Jalur Karir di Bidang IoT</strong> Profesi yang bisa digeluti: (1) IoT Developer - gaji junior Rp 6-10 juta/bulan (2) IoT Solutions Architect - design sistem end-to-end (3) Data Analyst - analisis data IoT untuk business insight (4) Embedded Systems Engineer - fokus hardware dan firmware (5) IoT Security Specialist - amankan sistem IoT (6) IoT Consultant - bantu perusahaan/organisasi implementasi IoT (7) IoT Entrepreneur - buat startup IoT sendiri. Demand tinggi tapi talenta masih kurang - peluang besar!</li>
+                        <li><strong>Roadmap Belajar IoT</strong> Tahapan pembelajaran: (1) Foundation (3-6 bulan) - elektronika dasar, pemrograman C/Python, Arduino basics (2) Intermediate (6-12 bulan) - networking, database, cloud platform, sensor advanced (3) Advanced (12+ bulan) - machine learning, computer vision, sistem kompleks, security, (4) Specialization - pilih fokus: smart home, industrial IoT, agriculture, atau smart city. Belajar sambil praktek project nyata. Ikuti online course (Coursera, Udemy), baca dokumentasi, join komunitas (Arduino Indonesia, IoT Makers).</li>
+                        <li><strong>Kontribusi untuk Umat</strong> Cara berkontribusi: (1) Volunteer - bantu masjid sekitar implementasi IoT gratis sebagai ibadah, (2) Open source - share code dan tutorial di GitHub untuk ummat lain, (3) Mentoring - ajari adik-adik remaja masjid lain, buat workshop rutin, (4) Research - kembangkan solusi IoT yang terjangkau untuk masjid kecil, (5) Advocacy - sosialisasi manfaat teknologi ke pengurus masjid yang masih tradisional, (6) Social enterprise - buat usaha IoT dengan model bisnis yang sustainable namun affordable untuk masjid. Jadikan skill IoT sebagai bentuk sedekah jariyah!</li>
+                    </ol>
+                    
+                    <div class="analogy-box">
+                        <h4>📋 Penutup dan Motivasi</h4>
+                        <p>Alhamdulillah, kita telah menyelesaikan 10 materi pembelajaran IoT untuk remaja masjid. Perjalanan belajar IoT memang membutuhkan kesabaran dan ketekunan, tapi ingatlah bahwa setiap skill yang kalian kuasai bisa menjadi amal jariyah jika digunakan untuk kebaikan umat.</p>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "Apa yang dimaksud dengan AIoT?",
+                        options: ["Artificial Internet of Things", "AI + IoT (Artificial Intelligence + Internet of Things)", "Automatic Internet Only Technology", "Advanced Input Output Terminal"],
+                        correct: 1,
+                        explanation: "AIoT adalah kombinasi Artificial Intelligence (AI) dengan Internet of Things (IoT)."
+                    },
+                    {
+                        question: "Berapa perkiraan jumlah masjid di Indonesia?",
+                        options: ["1,000 masjid", "10,000 masjid", "100,000 masjid", "800,000+ masjid"],
+                        correct: 3,
+                        explanation: "Indonesia memiliki lebih dari 800,000 masjid, peluang besar untuk implementasi IoT."
+                    },
+                    {
+                        question: "Berapa kisaran gaji junior IoT Developer di Indonesia?",
+                        options: ["Rp 1-2 juta/bulan", "Rp 6-10 juta/bulan", "Rp 100 ribu/bulan", "Rp 50 juta/bulan"],
+                        correct: 1,
+                        explanation: "Junior IoT Developer di Indonesia berkisar Rp 6-10 juta per bulan."
+                    },
+                    {
+                        question: "Berapa lama waktu yang dibutuhkan untuk menguasai foundation level IoT?",
+                        options: ["1 minggu", "3-6 bulan", "10 tahun", "1 hari"],
+                        correct: 1,
+                        explanation: "Foundation level IoT membutuhkan waktu sekitar 3-6 bulan untuk dikuasai."
+                    },
+                    {
+                        question: "Apa bentuk kontribusi terbaik bagi remaja masjid yang menguasai IoT?",
+                        options: ["Menyimpan ilmu untuk diri sendiri", "Volunteer implementasi IoT di masjid dan mentoring sebagai sedekah jariyah", "Hanya fokus mencari keuntungan", "Tidak perlu berbagi ilmu"],
+                        correct: 1,
+                        explanation: "Kontribusi terbaik adalah volunteer di masjid dan mentoring sebagai bentuk sedekah jariyah."
                     }
                 ]
             }
         ];
+
+        // ============================================
+        // MODUL TAMBAHAN: PEMAHAMAN DASAR ELEKTRONIKA
+        // ============================================
+        const elektronikaModule = {
+            id: 11,
+            title: "Pemahaman Dasar Elektronika",
+            icon: "fas fa-bolt",
+            description: "Mengenal komponen elektronika dasar untuk IoT.",
+            content: `
+                <h3>Materi Pendukung: Pemahaman Elektronika Dasar</h3>
+                
+                <p><strong>Pengantar</strong></p>
+                <p>Hubungan antara elektronika dan Internet of Things (IoT) bersifat esensial dan tidak terpisahkan, di mana elektronika berfungsi sebagai tulang punggung dan fondasi fisik yang memungkinkan konsep IoT terealisasi. Tanpa pemahaman elektronika dasar, akan sulit untuk merancang, membangun, dan troubleshooting sistem IoT dengan baik.</p>
+                
+                <h3>Komponen yang Sering Digunakan dalam IoT</h3>
+                
+                <h4>1. Resistor</h4>
+                <p><strong>Resistor</strong> adalah komponen dasar elektronika yang berfungsi untuk membatasi jumlah arus listrik yang mengalir dalam suatu rangkaian. Komponen ini bekerja dengan menghambat aliran arus listrik sesuai dengan nilai resistansinya, yang diukur dalam satuan Ohm (Ω).</p>
+                
+                <h5>Jenis-jenis Resistor:</h5>
+                <ul>
+                    <li><strong>Fixed Resistor (Resistor Tetap):</strong> Nilai resistansinya sudah pasti dan tidak dapat diubah.</li>
+                    <li><strong>Variable Resistor (Resistor Variabel):</strong> Nilai resistansinya dapat diatur atau diubah secara manual atau otomatis.</li>
+                    <li><strong>Thermistor (Thermal Resistor):</strong> Resistor yang nilainya berubah secara signifikan seiring perubahan suhu.</li>
+                    <li><strong>LDR (Light Dependent Resistor) / Photoresistor:</strong> Resistor yang nilainya berubah berdasarkan intensitas cahaya.</li>
+                </ul>
+                
+                <h4>2. Kapasitor</h4>
+                <p><strong>Kapasitor</strong> adalah komponen elektronika yang berfungsi untuk menyimpan energi listrik dalam bentuk medan listrik. Kapasitor terdiri dari dua pelat konduktor yang dipisahkan oleh bahan isolator (disebut dielektrik).</p>
+                
+                <h5>Jenis-jenis Kapasitor:</h5>
+                <ul>
+                    <li><strong>Ceramic Capacitor (Kapasitor Keramik):</strong> Jenis yang paling umum dan murah.</li>
+                    <li><strong>Electrolytic Capacitor (Kapasitor Elektrolitik):</strong> Memiliki kapasitansi yang besar dalam ukuran yang relatif kecil. HARUS dipasang sesuai polaritas.</li>
+                    <li><strong>Tantalum Capacitor:</strong> Mirip dengan elektrolitik tetapi menggunakan tantalum sebagai bahan anoda.</li>
+                    <li><strong>Supercapacitor / Ultracapacitor:</strong> Kapasitor dengan kapasitansi sangat besar (hingga beberapa Farad).</li>
+                </ul>
+                
+                <h4>3. Induktor</h4>
+                <p><strong>Induktor</strong> adalah komponen pasif yang menyimpan energi dalam bentuk medan magnet ketika arus listrik mengalir melaluinya. Induktor terdiri dari kumparan kawat yang dililitkan, sering kali mengelilingi inti magnetik.</p>
+                
+                <h5>Jenis-jenis Induktor:</h5>
+                <ul>
+                    <li><strong>Air Core Inductor (Induktor Inti Udara):</strong> Kumparan tanpa inti material magnetik.</li>
+                    <li><strong>Iron Core Inductor (Induktor Inti Besi):</strong> Menggunakan inti besi untuk meningkatkan induktansi.</li>
+                    <li><strong>Ferrite Core Inductor (Induktor Inti Ferit):</strong> Menggunakan material ferit (keramik magnetik) sebagai inti.</li>
+                </ul>
+                
+                <h4>4. Transistor</h4>
+                <p><strong>Transistor</strong> adalah komponen semikonduktor aktif yang berfungsi sebagai saklar elektronik atau penguat sinyal. Transistor adalah komponen fundamental dalam elektronika modern dan sangat penting dalam sistem IoT untuk switching, amplifikasi, dan regulasi.</p>
+                
+                <h5>Jenis-jenis Transistor:</h5>
+                <ul>
+                    <li><strong>BJT (Bipolar Junction Transistor):</strong> Transistor yang menggunakan arus basis kecil untuk mengontrol arus kolektor yang lebih besar.</li>
+                    <li><strong>FET (Field Effect Transistor):</strong> Transistor yang dikontrol oleh tegangan gate, bukan arus.</li>
+                    <li><strong>MOSFET (Metal-Oxide-Semiconductor FET):</strong> Tipe FET yang paling umum.</li>
+                </ul>
+                
+                <h4>5. Diode</h4>
+                <p><strong>Diode</strong> adalah komponen semikonduktor yang memungkinkan arus listrik mengalir hanya dalam satu arah (dari anoda ke katoda) dan memblokir arus dalam arah sebaliknya.</p>
+                
+                <h5>Jenis-jenis Diode:</h5>
+                <ul>
+                    <li><strong>Rectifier Diode (Diode Penyearah):</strong> Diode umum yang digunakan untuk mengubah AC menjadi DC.</li>
+                    <li><strong>Schottky Diode:</strong> Diode dengan voltage drop yang sangat rendah dan switching speed yang sangat cepat.</li>
+                    <li><strong>Zener Diode:</strong> Diode yang dirancang untuk bekerja dalam mode reverse breakdown pada tegangan tertentu.</li>
+                    <li><strong>LED (Light Emitting Diode):</strong> Diode khusus yang memancarkan cahaya ketika arus forward mengalir melaluinya.</li>
+                </ul>
+                
+                <div class="analogy-box">
+                    <h4>💡 Tips Belajar Elektronika untuk IoT:</h4>
+                    <ol>
+                        <li><strong>Learning by doing:</strong> Beli starter kit Arduino atau NodeMCU dan mulai praktek dengan project sederhana</li>
+                        <li><strong>Gunakan simulator:</strong> Software seperti Tinkercad Circuits atau Proteus untuk simulasi sebelum hardware</li>
+                        <li><strong>Baca datasheet:</strong> Biasakan membaca datasheet komponen untuk spesifikasi lengkap</li>
+                        <li><strong>Pahami rumus dasar:</strong> Hukum Ohm dan rumus daya adalah yang paling sering dipakai</li>
+                        <li><strong>Safety first:</strong> Selalu putuskan power sebelum memodifikasi rangkaian, hati-hati dengan AC voltage</li>
+                    </ol>
+                </div>
+                
+                <h3>Rumus Utama yang Sering Digunakan</h3>
+                
+                <h4>1. Hukum Ohm (Mencari Arus atau Tegangan)</h4>
+                <p><strong>Rumus:</strong></p>
+                <ul>
+                    <li><strong>V = I × R</strong> (Tegangan = Arus × Resistansi)</li>
+                    <li><strong>I = V / R</strong> (Arus = Tegangan / Resistansi)</li>
+                    <li><strong>R = V / I</strong> (Resistansi = Tegangan / Arus)</li>
+                </ul>
+                
+                <h4>2. Rumus Daya Listrik</h4>
+                <p><strong>Rumus:</strong></p>
+                <ul>
+                    <li><strong>P = V × I</strong> (Daya = Tegangan × Arus)</li>
+                    <li><strong>P = I² × R</strong> (Daya = Arus kuadrat × Resistansi)</li>
+                    <li><strong>P = V² / R</strong> (Daya = Tegangan kuadrat / Resistansi)</li>
+                </ul>
+                
+                <h4>3. Rumus Pembagi Tegangan (Voltage Divider)</h4>
+                <p><strong>Rumus:</strong></p>
+                <p><strong>Vout = Vin × (R2 / (R1 + R2))</strong></p>
+                
+                <div class="analogy-box">
+                    <h4>📋 Penutup:</h4>
+                    <p>Dengan memahami materi elektronika dasar ini, remaja masjid siap untuk merancang dan membangun berbagai sistem IoT yang bermanfaat untuk masjid dan umat. Selamat berkarya dan semoga ilmu yang dipelajari menjadi amal jariyah yang bermanfaat!</p>
+                    <p><strong>Wallahu a'lam bishawab.</strong></p>
+                </div>
+            `,
+            quiz: [
+                {
+                    question: "Apa fungsi resistor dalam rangkaian elektronika?",
+                    options: ["Menyimpan energi listrik", "Membatasi jumlah arus listrik", "Mengubah AC menjadi DC", "Menyimpan data"],
+                    correct: 1,
+                    explanation: "Resistor berfungsi untuk membatasi jumlah arus listrik yang mengalir dalam suatu rangkaian."
+                },
+                {
+                    question: "Komponen apa yang berfungsi menyimpan energi dalam bentuk medan listrik?",
+                    options: ["Resistor", "Kapasitor", "Induktor", "Transistor"],
+                    correct: 1,
+                    explanation: "Kapasitor berfungsi menyimpan energi listrik dalam bentuk medan listrik."
+                },
+                {
+                    question: "Apa hukum dasar dalam elektronika yang menghubungkan tegangan, arus, dan resistansi?",
+                    options: ["Hukum Kirchhoff", "Hukum Faraday", "Hukum Ohm", "Hukum Newton"],
+                    correct: 2,
+                    explanation: "Hukum Ohm menghubungkan tegangan (V), arus (I), dan resistansi (R) dengan rumus V = I × R."
+                },
+                {
+                    question: "Diode jenis apa yang memancarkan cahaya ketika arus mengalir?",
+                    options: ["Zener Diode", "Schottky Diode", "LED (Light Emitting Diode)", "Rectifier Diode"],
+                    correct: 2,
+                    explanation: "LED (Light Emitting Diode) memancarkan cahaya ketika arus forward mengalir melaluinya."
+                },
+                {
+                    question: "Apa fungsi transistor dalam sistem IoT?",
+                    options: ["Sebagai sensor suhu", "Sebagai saklar elektronik atau penguat sinyal", "Sebagai sumber daya", "Sebagai display"],
+                    correct: 1,
+                    explanation: "Transistor berfungsi sebagai saklar elektronik atau penguat sinyal dalam sistem IoT."
+                }
+            ]
+        };
+
+        // Tambahkan modul elektronika ke daftar modul
+        modulesData.push(elektronikaModule);
 
         // ============================================
         // DATA PRAKTEK
@@ -1770,16 +1957,12 @@
                         </li>
                     </ol>
                 `,
-                // Tambahkan field-file baru:
                 wiringImage: "assets/wiring_diagram_spto.PNG",
                 wiringImageAlt: "Wiring Diagram Sistem Penyiraman Tanaman Otomatis",
-                
                 documentationPdf: "assets/DOKUMENTASI SISTEM PENYIRAMAN TANAMAN OTOMATIS.pdf",
                 documentationTitle: "Dokumentasi Sistem Penyiraman Tanaman Otomatis",
-                
                 codeFile: "assets/code_spto.ino",
                 codeTitle: "Kode Lengkap Sistem Penyiraman Tanaman Otomatis",
-                
                 features: [
                     "Mode otomatis berdasarkan sensor tanah",
                     "Mode timer dengan RTC DS3231",
@@ -1839,16 +2022,12 @@
                         </li>
                     </ol>
                 `,
-                // Tambahkan field-file baru:
                 wiringImage: "assets/wiring_diagram_kw.PNG",
                 wiringImageAlt: "Wiring Diagram Kran Wudhu Otomatis",
-                
                 documentationPdf: "assets/DOKUMENTASI SISTEM KRAN WUDHU OTOMATIS.pdf",
                 documentationTitle: "Dokumentasi Sistem Kran Wudhu Otomatis",
-                
                 codeFile: "assets/code_kw.ino",
                 codeTitle: "Kode Lengkap Kran Wudhu Otomatis",
-                
                 features: [
                     "Deteksi tangan otomatis dengan sensor jarak",
                     "Swipe gesture untuk kontrol manual (mode auto/manual)",
@@ -1921,6 +2100,47 @@
                 }
             });
         });
+
+// ============================================
+// FUNGSI DOWNLOAD MATERI LENGKAP
+// ============================================
+function downloadFullIoTMaterial() {
+    const fileName = "Materi_Utama_Pembelajaran_IoT_untuk_Remaja_Masjid.pdf";
+    const filePath = "assets/Materi Utama Pembelajaran IoT untuk Remaja Masjid.pdf";
+    
+    // Membuat link untuk download
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    link.target = '_blank';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Notifikasi
+    alert(`Materi Utama IoT sedang diunduh...\n\nFile: ${fileName}`);
+}
+
+function downloadElectronicsMaterial() {
+    const fileName = "Materi_Pendukung_Pemahaman_Dasar_Elektronika.pdf";
+    const filePath = "assets/Materi Pendukung Pemahaman Dasar Elektronika.pdf";
+    
+    // Membuat link untuk download
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    link.target = '_blank';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Notifikasi
+    alert(`Materi Pendukung Elektronika sedang diunduh...\n\nFile: ${fileName}`);
+}
 
         // ============================================
         // FUNGSI MODUL PEMBELAJARAN
